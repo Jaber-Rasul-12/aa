@@ -1,0 +1,10 @@
+name: 'aa.aa::lang.controller.months.months'
+form: $/aa/aa/models/month/fields.yaml
+modelClass: Aa\Aa\Models\Month
+defaultRedirect: aa/aa/months
+create:
+    redirect: 'aa/aa/months/update/:id'
+    redirectClose: aa/aa/months
+update:
+    redirect: aa/aa/months
+    redirectClose: aa/aa/months

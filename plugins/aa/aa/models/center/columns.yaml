@@ -1,0 +1,18 @@
+columns:
+    id:
+        label: 'aa.aa::lang.model.center.id'
+        type: number
+    name:
+        label: 'aa.aa::lang.model.center.name'
+        type: text
+        searchable: true
+    parent:
+        label: 'aa.aa::lang.model.center.parent'
+        relation: parent
+        select: name
+    created_at:
+        label: 'aa.aa::lang.model.center.created_at'
+        type: datetime
+    updated_at:
+        label: 'aa.aa::lang.model.center.updated_at'
+        type: datetime

@@ -1,0 +1,10 @@
+name: 'aa.aa::lang.controller.centers.centers'
+form: $/aa/aa/models/center/fields.yaml
+modelClass: Aa\Aa\Models\Center
+defaultRedirect: aa/aa/centers
+create:
+    redirect: 'aa/aa/centers/update/:id'
+    redirectClose: aa/aa/centers
+update:
+    redirect: aa/aa/centers
+    redirectClose: aa/aa/centers

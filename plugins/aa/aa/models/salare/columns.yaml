@@ -1,0 +1,16 @@
+columns:
+    id:
+        label: 'aa.aa::lang.model.salare.id'
+        type: number
+    currency_lists:
+        label: 'aa.aa::lang.model.salare.currency'
+        type: text
+    price:
+        label: 'aa.aa::lang.model.salare.price'
+        type: text
+    created_at:
+        label: 'aa.aa::lang.model.salare.created_at'
+        type: datetime
+    updated_at:
+        label: 'aa.aa::lang.model.salare.updated_at'
+        type: datetime

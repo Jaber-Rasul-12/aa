@@ -1,0 +1,12 @@
+fields:
+    currency:
+        label: 'aa.aa::lang.model.salare.currency'
+        span: auto
+        type: dropdown
+        options:
+            dollar: 'aa.aa::lang.model.salare.dollar'
+            syrian: 'aa.aa::lang.model.salare.syrian'
+    price:
+        label: 'aa.aa::lang.model.salare.price'
+        span: auto
+        type: number

@@ -1,0 +1,20 @@
+1.0.1:
+    - 'Initialize plugin.'
+1.0.2:
+    - 'Created table aa_aa_centers'
+    - builder_table_create_aa_aa_centers.php
+1.0.3:
+    - 'Created table aa_aa_salares'
+    - builder_table_create_aa_aa_salares.php
+1.0.4:
+    - 'Created table aa_aa_employees'
+    - builder_table_create_aa_aa_employees.php
+1.0.5:
+    - 'Created table aa_aa_employees'
+    - builder_table_create_aa_aa_employees.php
+1.0.6:
+    - 'Created table aa_aa_employees'
+    - builder_table_create_aa_aa_employees.php
+1.0.7:
+    - 'Created table aa_aa_payrolls'
+    - builder_table_create_aa_aa_payrolls.php

@@ -1,0 +1,35 @@
+columns:
+    id:
+        label: 'aa.aa::lang.model.payroll.id'
+        type: number
+    employee:
+        label: 'aa.aa::lang.model.payroll.employee'
+        relation: employee
+        select: full_name
+    salare:
+        label: 'aa.aa::lang.model.payroll.salare'
+        relation: salare
+        nameFrom: FullQualityName
+    year:
+        label: 'aa.aa::lang.model.payroll.year'
+        relation: year
+        select: name
+    month:
+        label: 'aa.aa::lang.model.payroll.month'
+        relation: month
+        select: name
+    price:
+        label: 'aa.aa::lang.model.payroll.price'
+        type: text
+    status:
+        label: aa.aa::lang.model.month.status
+        type: jaber-list-switch
+        icon: true
+        text-color: true
+        font-size: 20
+    created_at:
+        label: 'aa.aa::lang.model.payroll.created_at'
+        type: datetime
+    updated_at:
+        label: 'aa.aa::lang.model.payroll.updated_at'
+        type: datetime

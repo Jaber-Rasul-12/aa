@@ -1,0 +1,21 @@
+# ===================================
+#  Import/Export Behavior Config
+# ===================================
+
+
+export:
+    title: aa.aa::lang.plugin.export_excel
+    modelClass: Aa\Aa\Models\EmployeeExportExcel
+    fileName: aas_export.csv
+    defaultFormatOptions:
+        delimiter: ';'
+        enclosure: '"'
+        escape: '\'
+        encoding: 'utf-8'
+    list: $/aa/aa/models/employee/columns.yaml
+
+import:
+    title: aa.aa::lang.plugin.import_excel
+    modelClass: Aa\Aa\Models\EmployeeImport
+    list: $/aa/aa/models/employee/columns.yaml
+    redirect: aa/aa/employees

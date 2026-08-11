@@ -1,0 +1,88 @@
+fields:
+    comprehensive_issue:
+        label: 'aa.aa::lang.model.employee.comprehensive_issue'
+        span: auto
+        type: number
+    file_number:
+        label: 'aa.aa::lang.model.employee.file_number'
+        span: auto
+        type: number
+    full_name:
+        label: 'aa.aa::lang.model.employee.full_name'
+        span: auto
+        type: text
+    name:
+        label: 'aa.aa::lang.model.employee.name'
+        span: auto
+        type: text
+    father_name:
+        label: 'aa.aa::lang.model.employee.father_name'
+        span: auto
+        type: text
+    last_name:
+        label: 'aa.aa::lang.model.employee.last_name'
+        span: auto
+        type: text
+    mother_name:
+        label: 'aa.aa::lang.model.employee.mother+name'
+        span: auto
+        type: text
+    date_of_birth:
+        label: 'aa.aa::lang.model.employee.date_of_birth'
+        span: auto
+        type: datepicker
+    place_of_birth:
+        label: 'aa.aa::lang.model.employee.place_of_birth'
+        span: auto
+        type: text
+    national_id:
+        label: 'aa.aa::lang.model.employee.national_id'
+        span: auto
+        type: text
+    rank:
+        label: 'aa.aa::lang.model.employee.rank'
+        span: auto
+        type: text
+    entry_number:
+        label: 'aa.aa::lang.model.employee.entry_number'
+        span: auto
+        type: number
+    level:
+        label: 'aa.aa::lang.model.employee.level'
+        span: auto
+        type: text
+    center:
+        label: 'aa.aa::lang.model.employee.center'
+        span: auto
+        type: relation
+        select: name
+    date_of_enrollment:
+        label: 'aa.aa::lang.model.employee.date_of_enrollment'
+        span: auto
+        type: datepicker
+    salare:
+        label: 'aa.aa::lang.model.employee.salare'
+        span: auto
+        type: relation
+        select: FullQualityName
+    gender:
+        label: 'aa.aa::lang.model.employee.gender'
+        span: auto
+        type: dropdown
+        options:
+            female: 'aa.aa::lang.model.employee.female'
+            male: 'aa.aa::lang.model.employee.male'
+            other: 'aa.aa::lang.model.employee.other'
+    nationality:
+        label: 'aa.aa::lang.model.employee.nationality'
+        span: auto
+        type: dropdown
+        options:
+            kurdish: 'aa.aa::lang.model.employee.kurdish'
+            arabic: 'aa.aa::lang.model.employee.arabic'
+            christian: 'aa.aa::lang.model.employee.christian'
+
+
+
+
+

@@ -1,0 +1,10 @@
+name: 'aa.aa::lang.controller.employees.employees'
+form: $/aa/aa/models/employee/fields.yaml
+modelClass: Aa\Aa\Models\Employee
+defaultRedirect: aa/aa/employees
+create:
+    redirect: 'aa/aa/employees/update/:id'
+    redirectClose: aa/aa/employees
+update:
+    redirect: aa/aa/employees
+    redirectClose: aa/aa/employees

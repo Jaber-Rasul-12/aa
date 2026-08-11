@@ -1,0 +1,12 @@
+list: $/aa/aa/models/employee/columns.yaml
+modelClass: Aa\Aa\Models\Employee
+title: 'aa.aa::lang.controller.employees.employees'
+noRecordsMessage: 'backend::lang.list.no_records'
+showSetup: true
+showCheckboxes: true
+recordsPerPage: 20
+toolbar:
+    buttons: list_toolbar
+    search:
+        prompt: 'backend::lang.list.search_prompt'
+recordUrl: 'aa/aa/employees/update/:id'

@@ -1,0 +1,10 @@
+name: 'aa.aa::lang.controller.years.years'
+form: $/aa/aa/models/year/fields.yaml
+modelClass: Aa\Aa\Models\Year
+defaultRedirect: aa/aa/years
+create:
+    redirect: 'aa/aa/years/update/:id'
+    redirectClose: aa/aa/years
+update:
+    redirect: aa/aa/years
+    redirectClose: aa/aa/years

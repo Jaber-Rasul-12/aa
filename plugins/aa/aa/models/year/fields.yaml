@@ -1,0 +1,9 @@
+fields:
+    name:
+        label: 'aa.aa::lang.model.year.name'
+        span: auto
+        type: text
+    status:
+        label: 'aa.aa::lang.model.year.status'
+        span: auto
+        type: switch

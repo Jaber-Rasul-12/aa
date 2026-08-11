@@ -1,0 +1,12 @@
+list: $/aa/aa/models/payroll/columns.yaml
+modelClass: Aa\Aa\Models\Payroll
+title: 'aa.aa::lang.controller.payrolls.payrolls'
+noRecordsMessage: 'backend::lang.list.no_records'
+showSetup: true
+showCheckboxes: true
+recordsPerPage: 20
+toolbar:
+    buttons: list_toolbar
+    search:
+        prompt: 'backend::lang.list.search_prompt'
+recordUrl: 'aa/aa/payrolls/update/:id'

@@ -1,0 +1,10 @@
+fields:
+    name:
+        label: 'aa.aa::lang.model.center.name'
+        span: auto
+        type: text
+    parent:
+        label: 'aa.aa::lang.model.center.parent'
+        span: auto
+        type: relation
+        select: name

@@ -1,0 +1,73 @@
+plugin:
+    name: 'aa.aa::lang.plugin.name'
+    description: 'aa.aa::lang.plugin.description'
+    author: Aa
+    replaces: {  }
+
+permissions:
+    menu_employees:
+        tab: 'aa.aa::lang.plugin.menu_employees'
+        label: 'aa.aa::lang.plugin.menu_employees'
+    centers:
+        tab: 'aa.aa::lang.plugin.menu_employees'
+        label: 'aa.aa::lang.plugin.centers'
+    employees:
+        tab: 'aa.aa::lang.plugin.menu_employees'
+        label: 'aa.aa::lang.plugin.employees'
+    salares:
+        tab: 'aa.aa::lang.plugin.menu_employees'
+        label: 'aa.aa::lang.plugin.salares'
+    years:
+        tab: 'aa.aa::lang.plugin.aa'
+        label: 'aa.aa::lang.plugin.years'
+    months:
+        tab: 'aa.aa::lang.plugin.aa'
+        label: 'aa.aa::lang.plugin.months'
+    payrolls:
+        tab: 'aa.aa::lang.plugin.menu_employees'
+        label: 'aa.aa::lang.plugin.payrolls'
+
+navigation:
+    menu_employees:
+        label: 'aa.aa::lang.plugin.menu_employees'
+        url: aa/aa/employees
+        icon: icon-users
+        permissions:
+            - menu_employees
+        sideMenu:
+            centers:
+                label: 'aa.aa::lang.plugin.centers'
+                url: aa/aa/centers
+                icon: icon-building-o
+                permissions:
+                    - centers
+            employees:
+                label: 'aa.aa::lang.plugin.employees'
+                url: aa/aa/employees
+                icon: icon-user-circle-o
+                permissions:
+                    - employees
+            salares:
+                label: 'aa.aa::lang.plugin.salares'
+                url: aa/aa/salares
+                icon: icon-money
+                permissions:
+                    - salares
+            years:
+                label: 'aa.aa::lang.plugin.years'
+                url: aa/aa/years
+                icon: icon-calendar
+                permissions:
+                    - years
+            months:
+                label: 'aa.aa::lang.plugin.months'
+                url: aa/aa/months
+                icon: icon-calendar-check-o
+                permissions:
+                    - months
+            payrolls:
+                label: 'aa.aa::lang.plugin.payrolls'
+                url: aa/aa/payrolls
+                icon: icon-credit-card
+                permissions:
+                    - payrolls

@@ -1,0 +1,10 @@
+name: 'aa.aa::lang.controller.salares.salares'
+form: $/aa/aa/models/salare/fields.yaml
+modelClass: Aa\Aa\Models\Salare
+defaultRedirect: aa/aa/salares
+create:
+    redirect: 'aa/aa/salares/update/:id'
+    redirectClose: aa/aa/salares
+update:
+    redirect: aa/aa/salares
+    redirectClose: aa/aa/salares

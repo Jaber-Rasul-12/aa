@@ -1,0 +1,10 @@
+name: 'aa.aa::lang.controller.payrolls.payrolls'
+form: $/aa/aa/models/payroll/fields.yaml
+modelClass: Aa\Aa\Models\Payroll
+defaultRedirect: aa/aa/payrolls
+create:
+    redirect: 'aa/aa/payrolls/update/:id'
+    redirectClose: aa/aa/payrolls
+update:
+    redirect: aa/aa/payrolls
+    redirectClose: aa/aa/payrolls
