@@ -81,7 +81,13 @@ fields:
             kurdish: 'aa.aa::lang.model.employee.kurdish'
             arabic: 'aa.aa::lang.model.employee.arabic'
             christian: 'aa.aa::lang.model.employee.christian'
-
+    _logbook@update:
+        type: jacob_logbook_log
+        limitPerPage: 10 
+        startPage: 1 
+        permissions: log_changes_aa
+        showUndoChangesButton: true 
+        refreshFormAfterUndo: true  
 
 
 

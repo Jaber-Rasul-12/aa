@@ -8,14 +8,19 @@ use BackendAuth;
 /**
  * Model
  */
+use Jacob\Logbook\Traits\LogChanges;
 class Year extends Model
 {
     use \Winter\Storm\Database\Traits\Validation;
+  use LogChanges;
 
 
 
-
-
+  public $logBookModelName = 'aa.aa::lang.plugin.years';
+  public static function changeLogBookDisplayColumn($column)
+  {
+    return 'aa.aa::lang.model.year.' . $column;
+  }
     /**
      * @var string The database table used by the model.
      */

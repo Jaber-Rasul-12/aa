@@ -10,3 +10,10 @@ fields:
         label: 'aa.aa::lang.model.salare.price'
         span: auto
         type: number
+    _logbook@update:
+        type: jacob_logbook_log
+        limitPerPage: 10 
+        startPage: 1 
+        permissions: log_changes_aa
+        showUndoChangesButton: true 
+        refreshFormAfterUndo: true  

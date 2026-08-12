@@ -6,12 +6,21 @@ use Model;
 /**
  * Model
  */
+use Jacob\Logbook\Traits\LogChanges;
 class Payroll extends Model
 {
     use \Winter\Storm\Database\Traits\Validation;
     
   
+  use LogChanges;
 
+
+
+  public $logBookModelName = 'aa.aa::lang.plugin.payrolls';
+  public static function changeLogBookDisplayColumn($column)
+  {
+    return 'aa.aa::lang.model.payroll.' . $column;
+  }
 
     /**
      * @var string The database table used by the model.

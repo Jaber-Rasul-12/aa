@@ -11,11 +11,20 @@ use BackendAuth;
 /**
  * Model
  */
+use Jacob\Logbook\Traits\LogChanges;
 class Month extends Model
 {
   use \Winter\Storm\Database\Traits\Validation;
 
+  use LogChanges;
 
+
+
+  public $logBookModelName = 'aa.aa::lang.plugin.months';
+  public static function changeLogBookDisplayColumn($column)
+  {
+    return 'aa.aa::lang.model.month.' . $column;
+  }
 
 
   /**

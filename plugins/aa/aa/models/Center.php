@@ -6,11 +6,24 @@ use Model;
 /**
  * Model
  */
+use Jacob\Logbook\Traits\LogChanges;
 class Center extends Model
 {
     use \Winter\Storm\Database\Traits\Validation;
     
-   
+     use LogChanges;
+
+         use \Winter\Storm\Database\Traits\Nullable;
+protected $nullable = ['parent_id'];
+
+
+
+
+  public $logBookModelName = 'aa.aa::lang.plugin.centers';
+  public static function changeLogBookDisplayColumn($column)
+  {
+    return 'aa.aa::lang.model.center.' . $column;
+  }
 
     /**
      * @var string The database table used by the model.

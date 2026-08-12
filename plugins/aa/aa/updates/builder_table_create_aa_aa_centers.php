@@ -14,7 +14,7 @@ class BuilderTableCreateAaAaCenters extends Migration
             $table->increments('id');
             $table->string('name');
             $table->integer('parent_id')->nullable()->unsigned();
-            $table->timestamps(); // This creates created_at and updated_at
+            $table->timestamps(); 
         });
 
         // Then add the foreign key constraint

@@ -28,3 +28,10 @@ fields:
         label: 'aa.aa::lang.model.payroll.status'
         span: auto
         type: switch
+    _logbook@update:
+        type: jacob_logbook_log
+        limitPerPage: 10 
+        startPage: 1 
+        permissions: log_changes_aa
+        showUndoChangesButton: true 
+        refreshFormAfterUndo: true  
