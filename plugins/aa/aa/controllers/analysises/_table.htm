@@ -24,6 +24,7 @@
  if(count($centers) > 0): ?>
             <?php foreach($centers as $center): ?>
             <tr style="background: white;">
+                <td style="padding: 10px; text-align: center; border-bottom: 1px solid #ddd;"><?= $center->name ?></td>
                 <td style="padding: 10px; text-align: center; border-bottom: 1px solid #ddd;"><?= Payroll::where('year_id' , $year_id)->where('month_id' , $month_id)->whereHas('salare', function ($query) { $query->where('currency', 'syrian');})->whereIn('employee_id', $employees->where('center_id'  , $center->id)->pluck('id')->toArray())->get()->count() ?></td>
                 <td style="padding: 10px; text-align: center; border-bottom: 1px solid #ddd;"><?= Payroll::where('year_id' , $year_id)->where('month_id' , $month_id)->whereHas('salare', function ($query) { $query->where('currency', 'dollar');})->whereIn('employee_id', $employees->where('center_id'  , $center->id)->pluck('id')->toArray())->get()->count() ?></td>
                 <td style="padding: 10px; text-align: center; border-bottom: 1px solid #ddd;"><?= Payroll::where('year_id' , $year_id)->where('month_id' , $month_id)->whereHas('salare', function ($query) { $query->where('currency', 'syrian');})->whereIn('employee_id', $employees->where('center_id'  , $center->id)->pluck('id')->toArray())->get()->sum('salare.price') ?> ل.س</td>
