@@ -15,6 +15,7 @@ return [
                    'message_unique' => 'The name must be unique.',
          'error_status_save' => 'The name must be unique.',
          'export_excel' => 'Export Excel',
+         'create_and_new'=>'Create and new',
          
          'import_excel' => 'Import Excel',
          'general'=>'General',

@@ -19,4 +19,23 @@ class Salares extends Controller
         parent::__construct();
         BackendMenu::setContext('Aa.Aa', 'menu_employees', 'salares');
     }
+
+
+    public function formGetRedirectUrl($context = null, $model = null)
+    {
+        $url = post('url');
+
+
+        if (($url == 'create') && !empty($url)) {
+            return "aa/aa/salares";
+        }else if (($url == 'preview') && !empty($url)) {
+            return "aa/aa/salares/$url/$model->id";
+        }else {
+            if ((post("close") == 1) && !empty(post("close"))) {
+                return "aa/aa/salares";
+            } else {
+                return "aa/aa/salares/update/$model->id";
+            }
+        }
+    }
 }

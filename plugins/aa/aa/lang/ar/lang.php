@@ -17,6 +17,8 @@ return [
         'export_excel' => 'تصدير إكسل',
         'import_excel' => 'استيراد إكسل',
         'general' => 'عام',
+         'create_and_new'=>'انشاء وجديد',
+
         'log_changes_aa' => 'سجل التغييرات',
         'year_month_status' => 'يرجى تغيير حالة السنة والشهر إلى مفعل',
         'message_delete' => 'لا يمكن الحذف لأن هناك بيانات مرتبطة بهذا العنصر',
