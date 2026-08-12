@@ -65,23 +65,31 @@ public function onFilterReports()
 ->where('center_id', $center_id)
 ->get();
 
- // للمصروفات بالدولار
-$employees_dollar = Employee::where('center_id', $center_id)
-    ->whereHas('payrolls', function ($query) use ($year_id, $month_id) {
-        $query->where('year_id', $year_id)
-              ->where('month_id', $month_id)
-              ->whereHas('salare', function ($query) {
-                  $query->where('currency', 'dollar');
-              });
-    })
-    ->with(['payrolls' => function ($query) use ($year_id, $month_id) {
-        $query->where('year_id', $year_id)
-              ->where('month_id', $month_id)
-              ->with(['salare' => function ($query) {
-                  $query->where('currency', 'dollar');
-              }]);
-    }])
-    ->get();
+//   $total_dollars = Employee::withWhereHas('payrolls', function ($query) use ($year_id, $month_id) {
+//     $query->where('year_id', $year_id)->where('month_id', $month_id)->whereHas('salare', function ($query) {
+//     $query->where('currency', 'dollar');
+// });
+// })
+// ->where('center_id', $center_id)
+// ->get();
+// $total_syrian = Employee::withWhereHas('payrolls', function ($query) use ($year_id, $month_id) {
+//     $query->where('year_id', $year_id)->where('month_id', $month_id)->whereHas('salare', function ($query) {
+//     $query->where('currency', 'syrian');
+// });
+// })
+// ->where('center_id', $center_id)
+// ->get();
+
+// للمصروفات بالدولار
+$employees_dollar = Employee::withWhereHas('payrolls', function ($query) use ($year_id, $month_id) {
+    $query->where('year_id', $year_id)
+          ->where('month_id', $month_id)
+          ->whereHas('salare', function ($query) {
+              $query->where('currency', 'dollar');
+          });
+})
+->where('center_id', $center_id)
+->get();
 
 $total_dollars = $employees_dollar->sum(function ($employee) {
     return $employee->payrolls->sum(function ($payroll) {
@@ -90,22 +98,15 @@ $total_dollars = $employees_dollar->sum(function ($employee) {
 });
 
 // للمصروفات بالسوري
-$employees_syrian = Employee::where('center_id', $center_id)
-    ->whereHas('payrolls', function ($query) use ($year_id, $month_id) {
-        $query->where('year_id', $year_id)
-              ->where('month_id', $month_id)
-              ->whereHas('salare', function ($query) {
-                  $query->where('currency', 'syrian');
-              });
-    })
-    ->with(['payrolls' => function ($query) use ($year_id, $month_id) {
-        $query->where('year_id', $year_id)
-              ->where('month_id', $month_id)
-              ->with(['salare' => function ($query) {
-                  $query->where('currency', 'syrian');
-              }]);
-    }])
-    ->get();
+$employees_syrian = Employee::withWhereHas('payrolls', function ($query) use ($year_id, $month_id) {
+    $query->where('year_id', $year_id)
+          ->where('month_id', $month_id)
+          ->whereHas('salare', function ($query) {
+              $query->where('currency', 'syrian');
+          });
+})
+->where('center_id', $center_id)
+->get();
 
 $total_syrian = $employees_syrian->sum(function ($employee) {
     return $employee->payrolls->sum(function ($payroll) {
