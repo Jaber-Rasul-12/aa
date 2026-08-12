@@ -95,11 +95,6 @@ public $fillable = [
     return $this->attributes['nationality'] ? trans('aa.aa::lang.model.employee.' . $this->attributes['nationality']) : 'لا يوجد بيانات';
   }
 
-
-  public function getSalareIdOptions(){
-    return Salare::get()->lists('')
-  }
-
                    /**
      * Perform actions before deleting 
      *

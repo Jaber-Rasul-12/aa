@@ -5,6 +5,7 @@ columns:
     currency_lists:
         label: 'aa.aa::lang.model.salare.currency'
         type: text
+        sortable: false
     price:
         label: 'aa.aa::lang.model.salare.price'
         type: text
