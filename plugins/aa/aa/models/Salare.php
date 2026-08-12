@@ -43,7 +43,7 @@ class Salare extends Model
 
     public function getFullQualityNameAttribute()
   {
-    return ( $this->currency == 'dollar' ? ' $ ' : ' ل.س ' . $this->price );
+    return ( $this->currency == 'dollar' ? ' $ ' . $this->price : ' ل.س ' . $this->price );
   }
 
 
