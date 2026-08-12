@@ -3,6 +3,7 @@ fields:
         label: 'aa.aa::lang.model.salare.currency'
         span: auto
         type: dropdown
+        placeholder: aa.aa::lang.plugin.select
         options:
             dollar: 'aa.aa::lang.model.salare.dollar'
             syrian: 'aa.aa::lang.model.salare.syrian'

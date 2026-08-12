@@ -1,0 +1,9 @@
+
+payrolls:
+    label: 'aa.aa::lang.controller.payrolls.payrolls'
+    manage:
+        form: $/aa/aa/models/payroll/fields.yaml
+        list: $/aa/aa/models/payroll/columns.yaml
+    view:
+        list: $/aa/aa/models/payroll/columns.yaml
+        toolbarButtons: create|delete

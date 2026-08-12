@@ -5,7 +5,7 @@ use BackendMenu;
 
 class Centers extends Controller
 {
-    public $implement = [        'Backend\Behaviors\ListController',        'Backend\Behaviors\FormController'    ];
+    public $implement = [        'Backend\Behaviors\ListController',        'Backend\Behaviors\FormController' , \Backend\Behaviors\ReorderController::class,    ];
     
     public $listConfig = 'config_list.yaml';
     public $formConfig = 'config_form.yaml';
@@ -13,6 +13,7 @@ class Centers extends Controller
     public $requiredPermissions = [
         'centers' 
     ];
+    public $reorderConfig = 'reorder_config.yaml';
 
     public function __construct()
     {

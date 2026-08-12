@@ -2,10 +2,6 @@ columns:
     id:
         label: 'aa.aa::lang.model.payroll.id'
         type: number
-    employee:
-        label: 'aa.aa::lang.model.payroll.employee'
-        relation: employee
-        select: full_name
     salare:
         label: 'aa.aa::lang.model.payroll.salare'
         relation: salare
@@ -18,9 +14,6 @@ columns:
         label: 'aa.aa::lang.model.payroll.month'
         relation: month
         select: name
-    price:
-        label: 'aa.aa::lang.model.payroll.price'
-        type: text
     status:
         label: aa.aa::lang.model.month.status
         type: jaber-list-switch

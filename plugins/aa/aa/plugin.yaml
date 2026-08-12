@@ -26,6 +26,10 @@ permissions:
     payrolls:
         tab: 'aa.aa::lang.plugin.menu_employees'
         label: 'aa.aa::lang.plugin.payrolls'
+    log_changes_aa: 
+        tab: 'aa.aa::lang.plugin.menu_employees'
+        label: 'aa.aa::lang.plugin.log_changes_aa'
+        
 
 navigation:
     menu_employees:
@@ -41,18 +45,18 @@ navigation:
                 icon: icon-building-o
                 permissions:
                     - centers
-            employees:
-                label: 'aa.aa::lang.plugin.employees'
-                url: aa/aa/employees
-                icon: icon-user-circle-o
-                permissions:
-                    - employees
             salares:
                 label: 'aa.aa::lang.plugin.salares'
                 url: aa/aa/salares
                 icon: icon-money
                 permissions:
                     - salares
+            employees:
+                label: 'aa.aa::lang.plugin.employees'
+                url: aa/aa/employees
+                icon: icon-user-circle-o
+                permissions:
+                    - employees
             years:
                 label: 'aa.aa::lang.plugin.years'
                 url: aa/aa/years
@@ -65,9 +69,9 @@ navigation:
                 icon: icon-calendar-check-o
                 permissions:
                     - months
-            payrolls:
-                label: 'aa.aa::lang.plugin.payrolls'
-                url: aa/aa/payrolls
-                icon: icon-credit-card
-                permissions:
-                    - payrolls
+            # payrolls:
+            #     label: 'aa.aa::lang.plugin.payrolls'
+            #     url: aa/aa/payrolls
+            #     icon: icon-credit-card
+            #     permissions:
+            #         - payrolls

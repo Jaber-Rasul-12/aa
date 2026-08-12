@@ -2,15 +2,11 @@ columns:
     id:
         label: 'aa.aa::lang.model.employee.id'
         type: number
-    comprehensive_issue:
-        label: 'aa.aa::lang.model.employee.comprehensive_issue'
-        type: number
-    file_number:
-        label: 'aa.aa::lang.model.employee.file_number'
-        type: number
+   
     full_name:
         label: 'aa.aa::lang.model.employee.full_name'
         type: text
+        searchable: true
     name:
         label: 'aa.aa::lang.model.employee.name'
         type: text
@@ -32,15 +28,11 @@ columns:
     national_id:
         label: 'aa.aa::lang.model.employee.national_id'
         type: text
+        searchable: true
     rank:
         label: 'aa.aa::lang.model.employee.rank'
         type: text
-    entry_number:
-        label: 'aa.aa::lang.model.employee.entry_number'
-        type: number
-    level:
-        label: 'aa.aa::lang.model.employee.level'
-        type: text
+    
     center:
         label: 'aa.aa::lang.model.employee.center'
         relation: center

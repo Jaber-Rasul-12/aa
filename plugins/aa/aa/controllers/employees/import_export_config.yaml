@@ -17,5 +17,5 @@ export:
 import:
     title: aa.aa::lang.plugin.import_excel
     modelClass: Aa\Aa\Models\EmployeeImport
-    list: $/aa/aa/models/employee/columns.yaml
+    list: $/aa/aa/models/employee/columns_exle.yaml
     redirect: aa/aa/employees

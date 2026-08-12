@@ -10,6 +10,8 @@ use Jacob\Logbook\Traits\LogChanges;
 class Center extends Model
 {
     use \Winter\Storm\Database\Traits\Validation;
+    use \Winter\Storm\Database\Traits\NestedTree;
+
     
      use LogChanges;
 
@@ -48,11 +50,11 @@ protected $nullable = ['parent_id'];
      * Relationships
      */
     public $belongsTo = [
-        'parent' => [Center::class, 'key' => 'parent_id']
+        'parent' => [self::class, 'key' => 'parent_id']
     ];
     
     public $hasMany = [
-        'children' => [Center::class, 'key' => 'parent_id'],
+        'children' => [self::class],
         'employees' => [Employee::class, 'key' => 'center_id']
     ];
 

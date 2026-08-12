@@ -1,29 +1,42 @@
 fields:
-    employee:
-        label: 'aa.aa::lang.model.payroll.employee'
-        span: auto
-        type: relation
-        select: full_name
-    salare:
+    # year_id:
+    #     label: 'aa.aa::lang.plugin.years'
+    #     span: auto
+    #     type: dropdown 
+    #     placeholder: aa.aa::lang.plugin.select
+    # month_id:
+    #     label: 'aa.aa::lang.plugin.months'
+    #     span: auto
+    #     type: dropdown
+    #     dependsOn: year_id
+    #     placeholder: aa.aa::lang.plugin.select
+    # employee_id:
+    #     label: 'aa.aa::lang.model.payroll.employee'
+    #     span: auto
+    #     type: dropdown
+    #     dependsOn: 
+    #         - year_id
+    #         - month_id
+
+
+
+    salare_id:
         label: 'aa.aa::lang.model.payroll.salare'
         span: auto
         type: dropdown
-        dependsOn: year_id
-    year_id:
-        label: 'aa.aa::lang.plugin.years'
-        span: auto
-        type: dropdown 
-        placeholder: aa.aa::lang.plugin.select
-    month_id:
-        label: 'aa.aa::lang.plugin.months'
-        span: auto
-        type: dropdown
-        placeholder: aa.aa::lang.plugin.select
-        dependsOn: year_id
-    price:
-        label: 'aa.aa::lang.model.payroll.price'
-        span: auto
-        type: number
+
+
+    # salare_id:
+    #     label: 'aa.aa::lang.model.payroll.salare'
+    #     span: auto
+    #     type: dropdown
+    #     placeholder: aa.aa::lang.plugin.select
+    #     dependsOn: 
+    #         - year_id
+    #         - month_id
+    #         - employee_id
+
+
     status: 
         label: 'aa.aa::lang.model.payroll.status'
         span: auto

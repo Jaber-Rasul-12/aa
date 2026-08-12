@@ -15,7 +15,11 @@ return [
                    'message_unique' => 'The name must be unique.',
          'error_status_save' => 'The name must be unique.',
          'export_excel' => 'Export Excel',
+         
          'import_excel' => 'Import Excel',
+         'general'=>'General',
+         'log_changes_aa'=>'Log changes',
+         'year_month_status'=>'please change status for year and month to true'
     ],
     'model' => [
                 'year' => [
@@ -103,11 +107,27 @@ return [
             'created_at' => 'Created at',
             'updated_at' => 'Updated at',
         ],
+
+    ],
+
+    'controller' => [
                         'years' => [
             'years' => 'Years',
         ],
         'months' => [
             'months' => 'Months',
         ],
-    ],
+        'salares' => [
+            'salares' => 'Salares',
+        ],
+        'employees' => [
+            'employees' => 'Employees',
+        ],
+        'centers' => [
+            'centers' => 'Centers',
+        ],
+        'payrolls' => [
+            'payrolls' => 'Payrolls',
+        ],
+    ]
 ];

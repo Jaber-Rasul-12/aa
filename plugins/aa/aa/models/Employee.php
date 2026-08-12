@@ -14,6 +14,29 @@ class Employee extends Model
 
   use LogChanges;
 
+         use \Winter\Storm\Database\Traits\Nullable;
+protected $nullable = ['center_id' , 'date_of_enrollment' , 'salare_id' , 'gender' , 'nationality'];
+public $fillable = [
+    'full_name' ,
+    'name' , 
+    'father_name' , 
+    'last_name' , 
+    'mother_name' , 
+    'date_of_birth' , 
+    'place_of_birth' , 
+    'national_id' , 
+    'rank' , 
+    'level' , 
+    'center_id' , 
+    'salare_id' , 
+    'gender' , 
+    'nationality' , 
+    'comprehensive_issue' , 
+    'file_number' , 
+    'entry_number' , 
+    'date_of_enrollment' , 
+
+    ];
 
 
   public $logBookModelName = 'aa.aa::lang.plugin.employees';
@@ -31,21 +54,18 @@ class Employee extends Model
         'full_name' => 'required|string|max:255',
         'name' => 'required|string|max:255',
         'father_name' => 'required|string|max:255',
-        'last_name' => 'required|string|max:255',
+        'last_name' => 'nullable|string|max:255',
         'mother_name' => 'required|string|max:255',
-        'date_of_birth' => 'required|date|before:today',
-        'place_of_birth' => 'required|string|max:255',
-        'national_id' => 'required|string|unique:aa_aa_employees,national_id',
+        'date_of_birth' => 'nullable|string',
+        'place_of_birth' => 'nullable|string|max:255',
+        'national_id' => 'required|string',
         'rank' => 'required|string|max:100',
-        'level' => 'required|string|max:100',
         'center_id' => 'nullable|exists:aa_aa_centers,id',
         'salare_id' => 'nullable|exists:aa_aa_salares,id',
         'gender' => 'nullable|in:male,female,other',
         'nationality' => 'nullable|string|max:100',
-        'comprehensive_issue' => 'nullable|integer|min:0',
-        'file_number' => 'nullable|integer|min:0',
-        'entry_number' => 'nullable|integer|min:0',
-        'date_of_enrollment' => 'nullable|date|after_or_equal:date_of_birth',
+       
+        'date_of_enrollment' => 'nullable|date',
     ];
 
        public $belongsTo = [
@@ -61,13 +81,18 @@ class Employee extends Model
     
 
 
+      public function getFullQualityNameAttribute()
+  {
+    return $this->full_name . ' ( ' . $this->national_id . ' )';
+  }
+
    public function getGenderListsAttribute()
   {
-    return trans('aa.aa::lang.model.employee.' . $this->attributes['gender']);
+    return $this->attributes['gender'] ?  trans('aa.aa::lang.model.employee.' . $this->attributes['gender']) : 'لا يوجد بيانات';
   }
      public function getNationalityListsAttribute()
   {
-    return trans('aa.aa::lang.model.employee.' . $this->attributes['nationality']);
+    return $this->attributes['nationality'] ? trans('aa.aa::lang.model.employee.' . $this->attributes['nationality']) : 'لا يوجد بيانات';
   }
 
                    /**

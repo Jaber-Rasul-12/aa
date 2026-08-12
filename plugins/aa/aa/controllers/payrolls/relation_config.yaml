@@ -1,0 +1,12 @@
+# ===================================
+#  Relation Behavior Config
+# ===================================
+
+employee:
+    label: 'aa.aa::lang.controller.employees.employees'
+    view:
+        form: $/aa/aa/models/employee/fields.yaml
+        toolbarButtons: create|add|link|update|delete|refresh
+    manage:
+        form: $/aa/aa/models/employee/fields.yaml
+        list: $/aa/aa/models/employee/columns.yaml

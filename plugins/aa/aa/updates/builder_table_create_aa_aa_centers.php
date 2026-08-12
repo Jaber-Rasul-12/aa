@@ -13,7 +13,10 @@ class BuilderTableCreateAaAaCenters extends Migration
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->string('name');
-            $table->integer('parent_id')->nullable()->unsigned();
+            $table->integer('parent_id')->nullable()->index()->unsigned();
+            $table->integer('nest_left')->nullable();
+            $table->integer('nest_right')->nullable();
+            $table->integer('nest_depth')->nullable();
             $table->timestamps(); 
         });
 

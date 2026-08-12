@@ -1,94 +1,116 @@
-fields:
-    comprehensive_issue:
-        label: 'aa.aa::lang.model.employee.comprehensive_issue'
-        span: auto
-        type: number
-    file_number:
-        label: 'aa.aa::lang.model.employee.file_number'
-        span: auto
-        type: number
-    full_name:
-        label: 'aa.aa::lang.model.employee.full_name'
-        span: auto
-        type: text
-    name:
-        label: 'aa.aa::lang.model.employee.name'
-        span: auto
-        type: text
-    father_name:
-        label: 'aa.aa::lang.model.employee.father_name'
-        span: auto
-        type: text
-    last_name:
-        label: 'aa.aa::lang.model.employee.last_name'
-        span: auto
-        type: text
-    mother_name:
-        label: 'aa.aa::lang.model.employee.mother+name'
-        span: auto
-        type: text
-    date_of_birth:
-        label: 'aa.aa::lang.model.employee.date_of_birth'
-        span: auto
-        type: datepicker
-    place_of_birth:
-        label: 'aa.aa::lang.model.employee.place_of_birth'
-        span: auto
-        type: text
-    national_id:
-        label: 'aa.aa::lang.model.employee.national_id'
-        span: auto
-        type: text
-    rank:
-        label: 'aa.aa::lang.model.employee.rank'
-        span: auto
-        type: text
-    entry_number:
-        label: 'aa.aa::lang.model.employee.entry_number'
-        span: auto
-        type: number
-    level:
-        label: 'aa.aa::lang.model.employee.level'
-        span: auto
-        type: text
-    center:
-        label: 'aa.aa::lang.model.employee.center'
-        span: auto
-        type: relation
-        select: name
-    date_of_enrollment:
-        label: 'aa.aa::lang.model.employee.date_of_enrollment'
-        span: auto
-        type: datepicker
-    salare:
-        label: 'aa.aa::lang.model.employee.salare'
-        span: auto
-        type: relation
-        select: FullQualityName
-    gender:
-        label: 'aa.aa::lang.model.employee.gender'
-        span: auto
-        type: dropdown
-        options:
-            female: 'aa.aa::lang.model.employee.female'
-            male: 'aa.aa::lang.model.employee.male'
-            other: 'aa.aa::lang.model.employee.other'
-    nationality:
-        label: 'aa.aa::lang.model.employee.nationality'
-        span: auto
-        type: dropdown
-        options:
-            kurdish: 'aa.aa::lang.model.employee.kurdish'
-            arabic: 'aa.aa::lang.model.employee.arabic'
-            christian: 'aa.aa::lang.model.employee.christian'
-    _logbook@update:
-        type: jacob_logbook_log
-        limitPerPage: 10 
-        startPage: 1 
-        permissions: log_changes_aa
-        showUndoChangesButton: true 
-        refreshFormAfterUndo: true  
+tabs:
+    icons:
+        'aa.aa::lang.plugin.general': 'icon-users'
+        'aa.aa::lang.plugin.payrolls': 'icon-credit-card'
 
+        'aa.aa::lang.plugin.log_changes_aa': 'icon-history'
 
-
-
+    fields:
+       
+        full_name:
+            label: 'aa.aa::lang.model.employee.full_name'
+            span: auto
+            type: text
+            tab: 'aa.aa::lang.plugin.general'
+        name:
+            label: 'aa.aa::lang.model.employee.name'
+            span: auto
+            type: text
+            tab: 'aa.aa::lang.plugin.general'
+        father_name:
+            label: 'aa.aa::lang.model.employee.father_name'
+            span: auto
+            type: text
+            tab: 'aa.aa::lang.plugin.general'
+        last_name:
+            label: 'aa.aa::lang.model.employee.last_name'
+            span: auto
+            type: text
+            tab: 'aa.aa::lang.plugin.general'
+        mother_name:
+            label: 'aa.aa::lang.model.employee.mother_name'
+            span: auto
+            type: text
+            tab: 'aa.aa::lang.plugin.general'
+        date_of_birth:
+            label: 'aa.aa::lang.model.employee.date_of_birth'
+            span: auto
+            type: datepicker
+            mode: date
+            tab: 'aa.aa::lang.plugin.general'
+        place_of_birth:
+            label: 'aa.aa::lang.model.employee.place_of_birth'
+            span: auto
+            type: text
+            tab: 'aa.aa::lang.plugin.general'
+        national_id:
+            label: 'aa.aa::lang.model.employee.national_id'
+            span: auto
+            type: text
+            tab: 'aa.aa::lang.plugin.general'
+        rank:
+            label: 'aa.aa::lang.model.employee.rank'
+            span: auto
+            type: text
+            tab: 'aa.aa::lang.plugin.general'
+       
+        center:
+            label: 'aa.aa::lang.model.employee.center'
+            span: auto
+            type: relation
+            select: name
+            placeholder: aa.aa::lang.plugin.select
+            tab: 'aa.aa::lang.plugin.general'
+        date_of_enrollment:
+            label: 'aa.aa::lang.model.employee.date_of_enrollment'
+            span: auto
+            type: datepicker
+            mode: date
+            tab: 'aa.aa::lang.plugin.general'
+    
+            minDate: '1/1/2014'
+    
+        salare:
+            label: 'aa.aa::lang.model.employee.salare'
+            span: auto
+            type: relation
+            placeholder: aa.aa::lang.plugin.select
+            nameFrom: fullQualityName
+            tab: 'aa.aa::lang.plugin.general'
+        gender:
+            label: 'aa.aa::lang.model.employee.gender'
+            span: auto
+            type: dropdown
+            tab: 'aa.aa::lang.plugin.general'
+            placeholder: aa.aa::lang.plugin.select
+            options:
+                female: 'aa.aa::lang.model.employee.female'
+                male: 'aa.aa::lang.model.employee.male'
+                other: 'aa.aa::lang.model.employee.other'
+        nationality:
+            label: 'aa.aa::lang.model.employee.nationality'
+            span: auto
+            type: dropdown
+            tab: 'aa.aa::lang.plugin.general'
+            placeholder: aa.aa::lang.plugin.select
+            options:
+                kurdish: 'aa.aa::lang.model.employee.kurdish'
+                arabic: 'aa.aa::lang.model.employee.arabic'
+                christian: 'aa.aa::lang.model.employee.christian'
+        payrolls:
+            label: 'aa.aa::lang.controller.payrolls.payrolls'
+            span: full
+            tab: 'aa.aa::lang.plugin.payrolls'
+            type: relationmanager
+            context: 'update'
+        _logbook@update:
+            type: jacob_logbook_log
+            limitPerPage: 10 
+            startPage: 1 
+            tab: 'aa.aa::lang.plugin.log_changes_aa'
+            permissions: log_changes_aa
+            showUndoChangesButton: true 
+            refreshFormAfterUndo: true  
+    
+    
+    

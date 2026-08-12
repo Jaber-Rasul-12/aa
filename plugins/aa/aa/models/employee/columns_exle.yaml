@@ -1,0 +1,30 @@
+columns:
+   
+    full_name:
+        label: 'الاسم الثلاثي'
+        type: text
+    name:
+        label: 'الاسم'
+        type: text
+    father_name:
+        label: 'اسم الاب'
+        type: text
+    last_name:
+        label: 'النسبة'
+        type: text
+    mother_name:
+        label: 'اسم الام'
+        type: text
+    date_of_birth:
+        label: 'تاريخ الميلاد'
+        type: text
+    place_of_birth:
+        label: 'مكان الميلاد'
+        type: text
+    national_id:
+        label: 'الرقم الوطني'
+        type: text
+    rank:
+        label: 'الرتبة'
+        type: text
+

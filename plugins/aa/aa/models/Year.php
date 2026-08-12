@@ -42,6 +42,7 @@ class Year extends Model
 
               public $hasMany = [
          'payrolls' => [Payroll::class, 'key' => 'year_id'],
+         'months' => [Month::class, 'key' => 'year_id'],
     ];
 
 

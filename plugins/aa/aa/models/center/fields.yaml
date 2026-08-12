@@ -8,6 +8,7 @@ fields:
         span: auto
         type: relation
         select: name
+        placeholder: aa.aa::lang.plugin.select
     _logbook@update:
         type: jacob_logbook_log
         limitPerPage: 10 

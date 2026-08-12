@@ -30,11 +30,9 @@ class Salare extends Model
      * @var array Validation rules
      */
     public $rules = [
-        'currency' => 'required|string|size:3|in:USD,EUR,GBP,JOD,KWD,SAR,AED,EGP',
+        'currency' => 'required|string|in:dollar,syrian',
         'price' => 'required|numeric|min:0|max:999999999999.99',
-        'name' => 'nullable|string|max:255|unique:aa_aa_salares,name',
-        'description' => 'nullable|string|max:1000',
-        'is_active' => 'boolean'
+
     ];
 
        public $hasMany = [
