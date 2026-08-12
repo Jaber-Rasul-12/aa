@@ -47,9 +47,11 @@ columns:
     gender_lists:
         label: 'aa.aa::lang.model.employee.gender'
         type: text
+        sortable: false
     nationality_lists:
         label: 'aa.aa::lang.model.employee.nationality'
         type: text
+        sortable: false
     created_at:
         label: 'aa.aa::lang.model.employee.created_at'
         type: datetime
