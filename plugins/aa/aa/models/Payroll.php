@@ -101,7 +101,7 @@ class Payroll extends Model
       ->exists();
 
     if ($exists) {
-      throw new \ValidationException(['name' => trans('aa.aa::lang.plugin.message_unique')]);
+      throw new \ValidationException(['name' => trans('aa.aa::lang.plugin.message_save_pyroll')]);
     }
   }
 

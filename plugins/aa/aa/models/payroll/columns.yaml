@@ -2,10 +2,10 @@ columns:
     id:
         label: 'aa.aa::lang.model.payroll.id'
         type: number
-    salare:
+    salare[FullQualityName]:
         label: 'aa.aa::lang.model.payroll.salare'
-        relation: salare
-        nameFrom: FullQualityName
+        sortable: false
+        
     year:
         label: 'aa.aa::lang.model.payroll.year'
         relation: year
