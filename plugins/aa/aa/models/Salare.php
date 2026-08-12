@@ -19,7 +19,7 @@ class Salare extends Model
   public $logBookModelName = 'aa.aa::lang.plugin.salares';
   public static function changeLogBookDisplayColumn($column)
   {
-    return 'aa.aa::lang.model.Salare.' . $column;
+    return 'aa.aa::lang.model.salare.' . $column;
   }
     /**
      * @var string The database table used by the model.
@@ -43,7 +43,13 @@ class Salare extends Model
 
     public function getFullQualityNameAttribute()
   {
-    return ( $this->currency == 'USD' ? ' $' : ' ل.س ' . $this->price );
+    return ( $this->currency == 'dollar' ? ' $ ' : ' ل.س ' . $this->price );
+  }
+
+
+  public function getCurrencyListsAttribute()
+  {
+    return $this->attributes['currency'] ?  trans('aa.aa::lang.model.salare.' . $this->attributes['currency']) : 'لا يوجد بيانات';
   }
 
 
