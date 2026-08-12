@@ -53,7 +53,7 @@ public function onFilterReports()
     $year_id = post('year_id');
     $month_id = post('month_id');
 
-    if(empty($year_id) || empty($month_id) || empty($center_id)){
+    if(empty($year_id) || empty($month_id) ){
         Flash::error('تحديد السنة والشهر و المركز مطلوبين');
         return;
     }
