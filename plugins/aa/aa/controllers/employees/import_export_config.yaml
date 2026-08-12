@@ -12,7 +12,7 @@ export:
         enclosure: '"'
         escape: '\'
         encoding: 'utf-8'
-    list: $/aa/aa/models/employee/columns.yaml
+    list: $/aa/aa/models/employee/columns_export.yaml
 
 import:
     title: aa.aa::lang.plugin.import_excel

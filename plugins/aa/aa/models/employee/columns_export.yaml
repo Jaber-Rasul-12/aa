@@ -1,0 +1,58 @@
+columns:
+    id:
+        label: 'aa.aa::lang.model.employee.id'
+        type: number
+   
+    full_name:
+        label: 'aa.aa::lang.model.employee.full_name'
+        type: text
+        searchable: true
+    name:
+        label: 'aa.aa::lang.model.employee.name'
+        type: text
+    father_name:
+        label: 'aa.aa::lang.model.employee.father_name'
+        type: text
+    last_name:
+        label: 'aa.aa::lang.model.employee.last_name'
+        type: text
+    mother_name:
+        label: 'aa.aa::lang.model.employee.mother_name'
+        type: text
+    date_of_birth:
+        label: 'aa.aa::lang.model.employee.date_of_birth'
+        type: text
+    place_of_birth:
+        label: 'aa.aa::lang.model.employee.place_of_birth'
+        type: text
+    national_id:
+        label: 'aa.aa::lang.model.employee.national_id'
+        type: text
+        searchable: true
+    rank:
+        label: 'aa.aa::lang.model.employee.rank'
+        type: text
+    
+    center:
+        label: 'aa.aa::lang.model.employee.center'
+        relation: center
+        select: name
+    date_of_enrollment:
+        label: 'aa.aa::lang.model.employee.date_of_enrollment'
+        type: text
+    salare:
+        label: 'aa.aa::lang.model.employee.salare'
+        relation: salare
+        select: price
+    gender:
+        label: 'aa.aa::lang.model.employee.gender'
+        type: text
+    nationality:
+        label: 'aa.aa::lang.model.employee.nationality'
+        type: text
+    created_at:
+        label: 'aa.aa::lang.model.employee.created_at'
+        type: datetime
+    updated_at:
+        label: 'aa.aa::lang.model.employee.updated_at'
+        type: datetime
