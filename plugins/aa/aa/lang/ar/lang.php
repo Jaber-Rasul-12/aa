@@ -18,7 +18,7 @@ return [
         'import_excel' => 'استيراد إكسل',
         'general' => 'عام',
         'create_and_new' => 'انشاء وجديد',
-         'reports'=>'التقارير',
+         'reports'=>'جداول الرواتب',
 
         'log_changes_aa' => 'سجل التغييرات',
         'year_month_status' => 'يرجى تغيير حالة السنة والشهر إلى مفعل',
@@ -133,7 +133,7 @@ return [
         ],
         
         'reports' => [
-            'reports' => 'التقارير',
+            'reports' => 'جداول الرواتب',
         ],
     ]
 ];
