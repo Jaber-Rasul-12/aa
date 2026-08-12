@@ -29,6 +29,11 @@ permissions:
     reports:
         tab: 'aa.aa::lang.plugin.menu_employees'
         label: 'aa.aa::lang.plugin.reports'
+    analysises:
+        tab: 'aa.aa::lang.plugin.menu_employees'
+        label: 'aa.aa::lang.plugin.analysises'
+
+        
     log_changes_aa: 
         tab: 'aa.aa::lang.plugin.menu_employees'
         label: 'aa.aa::lang.plugin.log_changes_aa'
@@ -78,9 +83,18 @@ navigation:
                 icon: icon-credit-card
                 permissions:
                     - reports
+            analysises:
+                label: 'aa.aa::lang.plugin.analysises'
+                url: aa/aa/payrolls
+                icon: icon-credit-card
+                permissions:
+                    - analysises
+
             # payrolls:
             #     label: 'aa.aa::lang.plugin.payrolls'
             #     url: aa/aa/payrolls
             #     icon: icon-credit-card
             #     permissions:
             #         - payrolls
+
+            

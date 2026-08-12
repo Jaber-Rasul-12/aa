@@ -17,6 +17,8 @@ return [
          'export_excel' => 'Export Excel',
          'create_and_new'=>'Create and new',
          'reports'=>'Reports',
+         'analysises'=>'Analysises',
+
          
          'import_excel' => 'Import Excel',
          'general'=>'General',
@@ -135,6 +137,9 @@ return [
         ],
         'reports' => [
             'reports' => 'reports',
+        ],
+        'analysises' => [
+            'analysises' => 'Analysises',
         ],
 
         

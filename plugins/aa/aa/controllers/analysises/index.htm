@@ -1,0 +1,126 @@
+<?php Block::put('breadcrumb') ?>
+    <ul>
+        <li><a href="<?= Backend::url('aa/aa/analysises') ?>"><?= e(trans('aa.aa::lang.controller.analysises.analysises')) ?></a></li>
+        <li><?= e($this->pageTitle) ?></li>
+    </ul>
+<?php Block::endPut() ?>
+
+<form id="layout">
+    <div style="display: flex; gap: 10px; justify-content: center; align-items: center; flex-wrap: wrap; padding: 20px; background: #f8f9fa; border-radius: 8px; margin-bottom: 20px;">
+        
+        <div style="min-width: 200px;">
+            <label style="display: block; font-weight: 600; margin-bottom: 5px; color: #495057;">السنوات</label>
+            <select name="year_id" data-request="onGetMonths"
+                    data-ajax-delay="300" class="form-control custom-select" style="width: 100%;">
+                              <option value=""><?= e(trans('aa.aa::lang.plugin.select')) ?></option>
+
+                
+                    <?php foreach($yearsOptions as $year){ ?>
+                <option value="<?= $year->id ?>"><?= $year->name ?></option>
+                <?php } ?>
+            </select>
+        </div>
+
+        <div style="min-width: 200px;">
+            <label style="display: block; font-weight: 600; margin-bottom: 5px; color: #495057;">الاشهر</label>
+            <select name="month_id" id="monthSelect" class="form-control custom-select" style="width: 100%;">
+               
+            </select>
+        </div>
+
+
+
+        <div style="min-width: 150px; display: flex; gap: 10px; align-items: flex-end; margin-top: 20px;">
+            <button type="submit" data-request="onFilterReports" data-stripe-load-indicator class="btn btn-primary" style="padding: 8px 30px;">
+                <i class="fa fa-filter"></i> فلترة
+            </button>
+            <button type="button" 
+onclick='window.print()' data-hotkey='ctrl+p'
+                    class="btn btn-success" 
+                    style="padding: 8px 30px;">
+                <i class="fa fa-print"></i> طباعة
+            </button>
+        </div>
+    </div>
+</form>
+
+
+
+<!-- ====== الجدول الرئيسي ====== -->
+<div class="table-responsive" id="body_table">
+  
+</div>
+
+
+
+<style>
+    /* ====== ستايلات الإحصائيات ====== */
+    .summary-card {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        cursor: default;
+    }
+    .summary-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 25px rgba(0,0,0,0.15) !important;
+    }
+    
+    /* ====== ستايلات الطباعة ====== */
+    @media print {
+        #layout, .btn, .form-control, select, label {
+            display: none !important;
+        }
+        #statistics-container {
+            display: block !important;
+        }
+        .summary-cards {
+            page-break-inside: avoid !important;
+        }
+        .summary-card {
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1) !important;
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+        }
+        #body_table {
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+        .table {
+            font-size: 12px !important;
+        }
+        .table th, .table td {
+            padding: 5px !important;
+        }
+        .badge {
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+        }
+        .badge-danger { background: #e53e3e !important; color: white !important; }
+        .badge-success { background: #38a169 !important; color: white !important; }
+        .badge-primary { background: #3182ce !important; color: white !important; }
+        .badge-dark { background: #2d3748 !important; color: white !important; }
+    }
+
+    /* ====== تحسين الموبايل ====== */
+    @media (max-width: 768px) {
+        .summary-cards {
+            grid-template-columns: repeat(2, 1fr) !important;
+        }
+        .summary-card {
+            padding: 15px !important;
+        }
+        .summary-card div:last-child {
+            font-size: 20px !important;
+        }
+    }
+    @media (max-width: 480px) {
+        .summary-cards {
+            grid-template-columns: 1fr !important;
+        }
+    }
+
+    .control-toolbar .toolbar-item .btn,
+    .control-toolbar .toolbar-item .btn-group,
+    .control-toolbar .toolbar-item .dropdown {
+        display: none !important;
+    }
+</style>

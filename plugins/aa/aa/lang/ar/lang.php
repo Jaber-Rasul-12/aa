@@ -19,6 +19,8 @@ return [
         'general' => 'عام',
         'create_and_new' => 'انشاء وجديد',
          'reports'=>'جداول الرواتب',
+         'analysises'=>'التقارير',
+
 
         'log_changes_aa' => 'سجل التغييرات',
         'year_month_status' => 'يرجى تغيير حالة السنة والشهر إلى مفعل',
@@ -134,6 +136,9 @@ return [
         
         'reports' => [
             'reports' => 'جداول الرواتب',
+        ],
+        'analysises' => [
+            'analysises' => 'التقارير',
         ],
     ]
 ];
