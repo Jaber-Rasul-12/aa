@@ -29,9 +29,9 @@
             $val3 = Payroll::where('year_id' , $year_id)->where('month_id' , $month_id)->whereHas('salare', function ($query) { $query->where('currency', 'syrian');})->whereIn('employee_id', $employees->where('center_id'  , $center->id)->pluck('id')->toArray())->get()->sum('salare.price'); 
             $val4 = Payroll::where('year_id' , $year_id)->where('month_id' , $month_id)->whereHas('salare', function ($query) { $query->where('currency', 'dollar');})->whereIn('employee_id', $employees->where('center_id'  , $center->id)->pluck('id')->toArray())->get()->sum('salare.price'); 
             $va1 =+ $val1; 
-            $va2 =+ $val1; 
-            $va3 =+ $val1; 
-            $va4 =+ $val1; ?>
+            $va2 =+ $val2; 
+            $va3 =+ $val3; 
+            $va4 =+ $val4; ?>
 
             <tr style="background: white;">
                 <td style="padding: 10px; text-align: center; border-bottom: 1px solid #ddd;"><?= $center->name ?></td>
