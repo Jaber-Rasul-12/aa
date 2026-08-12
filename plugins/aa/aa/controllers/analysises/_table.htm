@@ -17,40 +17,79 @@
         </tr>
     </thead>
     <tbody>
-        <?php
+       <?php
+use Aa\Aa\Models\Payroll;
 
-            use Aa\Aa\Models\Payroll;
-
- if(count($centers) > 0): ?>
-            <?php $val1 = 0; $val2 = 0; $val3 = 0; $val4 = 0; $va1 = 0; $va2 = 0; $va3 = 0; $va4 = 0; ?>
-            <?php foreach($centers as $center): ?>
-            <?php $val1 = Payroll::where('year_id' , $year_id)->where('month_id' , $month_id)->whereHas('salare', function ($query) { $query->where('currency', 'syrian');})->whereIn('employee_id', $employees->where('center_id'  , $center->id)->pluck('id')->toArray())->get()->count(); 
-            $val2 = Payroll::where('year_id' , $year_id)->where('month_id' , $month_id)->whereHas('salare', function ($query) { $query->where('currency', 'dollar');})->whereIn('employee_id', $employees->where('center_id'  , $center->id)->pluck('id')->toArray())->get()->count(); 
-            $val3 = Payroll::where('year_id' , $year_id)->where('month_id' , $month_id)->whereHas('salare', function ($query) { $query->where('currency', 'syrian');})->whereIn('employee_id', $employees->where('center_id'  , $center->id)->pluck('id')->toArray())->get()->sum('salare.price'); 
-            $val4 = Payroll::where('year_id' , $year_id)->where('month_id' , $month_id)->whereHas('salare', function ($query) { $query->where('currency', 'dollar');})->whereIn('employee_id', $employees->where('center_id'  , $center->id)->pluck('id')->toArray())->get()->sum('salare.price'); 
-            $va1 = $val1 +  $val1; 
-            $va2 = $val2 +  $val2; 
-            $va3 = $val3 +  $val3; 
-            $va4 = $val4 +  $val4; ?>
-
-            <tr style="background: white;">
-                <td style="padding: 10px; text-align: center; border-bottom: 1px solid #ddd;"><?= $center->name ?></td>
-                <td style="padding: 10px; text-align: center; border-bottom: 1px solid #ddd;"><?= $val1 ?></td>
-                <td style="padding: 10px; text-align: center; border-bottom: 1px solid #ddd;"><?= $val2 ?></td>
-                <td style="padding: 10px; text-align: center; border-bottom: 1px solid #ddd;"><?= $val3 ?> ل.س</td>
-                <td style="padding: 10px; text-align: center; border-bottom: 1px solid #ddd;"><?= $val4 ?> $ </td>
-               
-              
-            </tr>
-            <?php endforeach; ?>
-            <tr style="background: white;">
-                <td style="padding: 10px; text-align: center; border-bottom: 1px solid #ddd; font-weight: bold;">المجموع</td>
-                <td style="padding: 10px; text-align: center; border-bottom: 1px solid #ddd; font-weight: bold;"><?= $va1 ?></td>
-                <td style="padding: 10px; text-align: center; border-bottom: 1px solid #ddd; font-weight: bold;"><?= $va2 ?></td>
-                <td style="padding: 10px; text-align: center; border-bottom: 1px solid #ddd; font-weight: bold;"><?= $va3 ?> ل.س</td>
-                <td style="padding: 10px; text-align: center; border-bottom: 1px solid #ddd; font-weight: bold;"><?= $va4 ?> $ </td>
-            </tr>
-        <?php else: ?>
+if(count($centers) > 0): 
+    // جلب جميع الرواتب مع العلاقات مرة واحدة
+    $allPayrolls = Payroll::where('year_id', $year_id)
+        ->where('month_id', $month_id)
+        ->with(['salare', 'employee'])
+        ->get()
+        ->groupBy('employee_id'); // تجميع حسب الموظف
+    
+    $va1 = $va2 = $va3 = $va4 = 0;
+?>
+    <?php foreach($centers as $center): 
+        // جلب موظفي هذا المركز
+        $employeeIds = $employees->where('center_id', $center->id)->pluck('id')->toArray();
+        
+        // فلترة الرواتب لهؤلاء الموظفين
+        $centerPayrolls = collect();
+        foreach($employeeIds as $empId) {
+            if(isset($allPayrolls[$empId])) {
+                $centerPayrolls = $centerPayrolls->merge($allPayrolls[$empId]);
+            }
+        }
+        
+        // حساب السوري
+        $syrianPayrolls = $centerPayrolls->filter(function($payroll) {
+            return $payroll->salare && $payroll->salare->currency == 'syrian';
+        });
+        
+        // حساب الدولار
+        $dollarPayrolls = $centerPayrolls->filter(function($payroll) {
+            return $payroll->salare && $payroll->salare->currency == 'dollar';
+        });
+        
+        $val1 = $syrianPayrolls->count();
+        $val2 = $dollarPayrolls->count();
+        $val3 = $syrianPayrolls->sum(function($payroll) {
+            return $payroll->salare ? $payroll->salare->price : 0;
+        });
+        $val4 = $dollarPayrolls->sum(function($payroll) {
+            return $payroll->salare ? $payroll->salare->price : 0;
+        });
+        
+        // تجميع المجاميع
+        $va1 += $val1;
+        $va2 += $val2;
+        $va3 += $val3;
+        $va4 += $val4;
+    ?>
+        <tr style="background: white;">
+            <td style="padding: 10px; text-align: center; border-bottom: 1px solid #ddd;"><?= $center->name ?></td>
+            <td style="padding: 10px; text-align: center; border-bottom: 1px solid #ddd;"><?= $val1 ?></td>
+            <td style="padding: 10px; text-align: center; border-bottom: 1px solid #ddd;"><?= $val2 ?></td>
+            <td style="padding: 10px; text-align: center; border-bottom: 1px solid #ddd;"><?= number_format($val3, 2) ?> ل.س</td>
+            <td style="padding: 10px; text-align: center; border-bottom: 1px solid #ddd;"><?= number_format($val4, 2) ?> $</td>
+        </tr>
+    <?php endforeach; ?>
+    <tr style="background: white;">
+        <td style="padding: 10px; text-align: center; border-bottom: 1px solid #ddd; font-weight: bold;">المجموع</td>
+        <td style="padding: 10px; text-align: center; border-bottom: 1px solid #ddd; font-weight: bold;"><?= $va1 ?></td>
+        <td style="padding: 10px; text-align: center; border-bottom: 1px solid #ddd; font-weight: bold;"><?= $va2 ?></td>
+        <td style="padding: 10px; text-align: center; border-bottom: 1px solid #ddd; font-weight: bold;"><?= number_format($va3, 2) ?> ل.س</td>
+        <td style="padding: 10px; text-align: center; border-bottom: 1px solid #ddd; font-weight: bold;"><?= number_format($va4, 2) ?> $</td>
+    </tr>
+<?php else: ?>
+    <tr>
+        <td colspan="12" style="padding: 40px; text-align: center; color: #999;">
+            <i class="fa fa-employee" style="font-size: 48px; display: block; margin-bottom: 10px;"></i>
+            لا توجد مراكز مطابقة للفلترة
+        </td>
+    </tr>
+<?php endif; ?>
             <tr>
                 <td colspan="12" style="padding: 40px; text-align: center; color: #999;">
                     <i class="fa fa-employee" style="font-size: 48px; display: block; margin-bottom: 10px;"></i>
