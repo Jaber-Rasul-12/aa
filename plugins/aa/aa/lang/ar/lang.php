@@ -7,7 +7,7 @@ return [
         'menu_employees' => 'قائمة الموظفين',
         'centers' => 'المراكز',
         'employees' => 'الموظفين',
-        'salares' => 'الرواتب',
+        'salares' => 'شريحة الرواتب',
         'payrolls' => 'كشوف الرواتب',
         'select' => 'اختر',
         'years' => 'السنوات',
@@ -117,7 +117,7 @@ return [
             'months' => 'الأشهر',
         ],
         'salares' => [
-            'salares' => 'الرواتب',
+            'salares' => 'شريحة الرواتب',
         ],
         'employees' => [
             'employees' => 'الموظفين',
