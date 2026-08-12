@@ -18,10 +18,10 @@ permissions:
         tab: 'aa.aa::lang.plugin.menu_employees'
         label: 'aa.aa::lang.plugin.salares'
     years:
-        tab: 'aa.aa::lang.plugin.aa'
+        tab: 'aa.aa::lang.plugin.menu_employees'
         label: 'aa.aa::lang.plugin.years'
     months:
-        tab: 'aa.aa::lang.plugin.aa'
+        tab: 'aa.aa::lang.plugin.menu_employees'
         label: 'aa.aa::lang.plugin.months'
     payrolls:
         tab: 'aa.aa::lang.plugin.menu_employees'
