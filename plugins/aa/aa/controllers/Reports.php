@@ -65,13 +65,61 @@ public function onFilterReports()
 ->where('center_id', $center_id)
 ->get();
 
+ // للمصروفات بالدولار
+$employees_dollar = Employee::where('center_id', $center_id)
+    ->whereHas('payrolls', function ($query) use ($year_id, $month_id) {
+        $query->where('year_id', $year_id)
+              ->where('month_id', $month_id)
+              ->whereHas('salare', function ($query) {
+                  $query->where('currency', 'dollar');
+              });
+    })
+    ->with(['payrolls' => function ($query) use ($year_id, $month_id) {
+        $query->where('year_id', $year_id)
+              ->where('month_id', $month_id)
+              ->with(['salare' => function ($query) {
+                  $query->where('currency', 'dollar');
+              }]);
+    }])
+    ->get();
+
+$total_dollars = $employees_dollar->sum(function ($employee) {
+    return $employee->payrolls->sum(function ($payroll) {
+        return $payroll->salare->sum('price');
+    });
+});
+
+// للمصروفات بالسوري
+$employees_syrian = Employee::where('center_id', $center_id)
+    ->whereHas('payrolls', function ($query) use ($year_id, $month_id) {
+        $query->where('year_id', $year_id)
+              ->where('month_id', $month_id)
+              ->whereHas('salare', function ($query) {
+                  $query->where('currency', 'syrian');
+              });
+    })
+    ->with(['payrolls' => function ($query) use ($year_id, $month_id) {
+        $query->where('year_id', $year_id)
+              ->where('month_id', $month_id)
+              ->with(['salare' => function ($query) {
+                  $query->where('currency', 'syrian');
+              }]);
+    }])
+    ->get();
+
+$total_syrian = $employees_syrian->sum(function ($employee) {
+    return $employee->payrolls->sum(function ($payroll) {
+        return $payroll->salare->sum('price');
+    });
+});
+
     $this->vars['employees'] = $employees;
 
     // ====== حساب الإحصائيات ======
     $statistics = [
-        'total_dollars' => $employees->count(),
-        'total_syrian' => 0,
-        'total_number' => 0,
+        'total_dollars' => $total_dollars,
+        'total_syrian' => $total_syrian,
+        'total_number' => count($employees),
     ];
 
 
