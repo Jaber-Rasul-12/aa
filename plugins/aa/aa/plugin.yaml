@@ -85,7 +85,7 @@ navigation:
                     - reports
             analysises:
                 label: 'aa.aa::lang.plugin.analysises'
-                url: aa/aa/payrolls
+                url: aa/aa/analysises
                 icon: icon-credit-card
                 permissions:
                     - analysises
