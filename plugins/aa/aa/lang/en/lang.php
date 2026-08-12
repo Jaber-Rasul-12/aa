@@ -16,6 +16,7 @@ return [
          'error_status_save' => 'The name must be unique.',
          'export_excel' => 'Export Excel',
          'create_and_new'=>'Create and new',
+         'reports'=>'Reports',
          
          'import_excel' => 'Import Excel',
          'general'=>'General',
@@ -132,5 +133,10 @@ return [
         'payrolls' => [
             'payrolls' => 'Payrolls',
         ],
+        'reports' => [
+            'reports' => 'reports',
+        ],
+
+        
     ]
 ];

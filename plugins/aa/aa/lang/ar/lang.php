@@ -17,13 +17,13 @@ return [
         'export_excel' => 'تصدير إكسل',
         'import_excel' => 'استيراد إكسل',
         'general' => 'عام',
-         'create_and_new'=>'انشاء وجديد',
+        'create_and_new' => 'انشاء وجديد',
+         'reports'=>'التقارير',
 
         'log_changes_aa' => 'سجل التغييرات',
         'year_month_status' => 'يرجى تغيير حالة السنة والشهر إلى مفعل',
         'message_delete' => 'لا يمكن الحذف لأن هناك بيانات مرتبطة بهذا العنصر',
         'message_save_pyroll' => 'لا يمكن الانشاء بسبب تسليم الراتب مسبقا في هذا الشهر',
-
     ],
     'model' => [
         'year' => [
@@ -112,7 +112,6 @@ return [
             'updated_at' => 'تاريخ التحديث',
         ],
     ],
-
     'controller' => [
         'years' => [
             'years' => 'السنوات',
@@ -131,6 +130,10 @@ return [
         ],
         'payrolls' => [
             'payrolls' => 'كشوف الرواتب',
+        ],
+        
+        'reports' => [
+            'reports' => 'التقارير',
         ],
     ]
 ];

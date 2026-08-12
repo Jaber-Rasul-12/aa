@@ -26,6 +26,9 @@ permissions:
     payrolls:
         tab: 'aa.aa::lang.plugin.menu_employees'
         label: 'aa.aa::lang.plugin.payrolls'
+    reports:
+        tab: 'aa.aa::lang.plugin.menu_employees'
+        label: 'aa.aa::lang.plugin.reports'
     log_changes_aa: 
         tab: 'aa.aa::lang.plugin.menu_employees'
         label: 'aa.aa::lang.plugin.log_changes_aa'
@@ -69,6 +72,12 @@ navigation:
                 icon: icon-calendar-check-o
                 permissions:
                     - months
+            reports:
+                label: 'aa.aa::lang.plugin.reports'
+                url: aa/aa/reports
+                icon: icon-credit-card
+                permissions:
+                    - reports
             # payrolls:
             #     label: 'aa.aa::lang.plugin.payrolls'
             #     url: aa/aa/payrolls
