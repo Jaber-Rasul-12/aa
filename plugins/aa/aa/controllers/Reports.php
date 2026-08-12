@@ -5,6 +5,7 @@ namespace Aa\Aa\Controllers;
 use Aa\Aa\Models\Center;
 use Aa\Aa\Models\Employee;
 use Aa\Aa\Models\Month;
+use Aa\Aa\Models\Payroll;
 use Aa\Aa\Models\Year;
 use Backend\Classes\Controller;
 use Backend\Facades\BackendMenu;
@@ -80,40 +81,9 @@ public function onFilterReports()
 // ->where('center_id', $center_id)
 // ->get();
 
-// للمصروفات بالدولار
-$employees_dollar = Employee::withWhereHas('payrolls', function ($query) use ($year_id, $month_id) {
-    $query->where('year_id', $year_id)
-          ->where('month_id', $month_id)
-          ->whereHas('salare', function ($query) {
-              $query->where('currency', 'dollar');
-          });
-})
-->where('center_id', $center_id)
-->get();
 
-$total_dollars = $employees_dollar->sum(function ($employee) {
-    return $employee->payrolls->sum(function ($payroll) {
-        return $payroll->salare->sum('price');
-    });
-});
-
-// للمصروفات بالسوري
-$employees_syrian = Employee::withWhereHas('payrolls', function ($query) use ($year_id, $month_id) {
-    $query->where('year_id', $year_id)
-          ->where('month_id', $month_id)
-          ->whereHas('salare', function ($query) {
-              $query->where('currency', 'syrian');
-          });
-})
-->where('center_id', $center_id)
-->get();
-
-$total_syrian = $employees_syrian->sum(function ($employee) {
-    return $employee->payrolls->sum(function ($payroll) {
-        return $payroll->salare->sum('price');
-    });
-});
-
+$total_dollars = Payroll::where('year_id' , $year_id)->where('month_id' , $month_id)->whereHas('salare', function ($query) { $query->where('currency', 'dollar');})->whereIn('employee_id', $employees->pluck('id')->toArray())->sum('salare.price');
+$total_syrian = Payroll::where('year_id' , $year_id)->where('month_id' , $month_id)->whereHas('salare', function ($query) { $query->where('currency', 'syrian');})->whereIn('employee_id', $employees->pluck('id')->toArray())->sum('salare.price');
     $this->vars['employees'] = $employees;
 
     // ====== حساب الإحصائيات ======
