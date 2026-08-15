@@ -55,10 +55,10 @@ if(count($centers) > 0):
         $val1 = $syrianPayrolls->count();
         $val2 = $dollarPayrolls->count();
         $val3 = $syrianPayrolls->sum(function($payroll) {
-            return $payroll->salare ? $payroll->salare->price : 0;
+            return $payroll->salare ? $payroll->price : 0;
         });
         $val4 = $dollarPayrolls->sum(function($payroll) {
-            return $payroll->salare ? $payroll->salare->price : 0;
+            return $payroll->salare ? $payroll->price : 0;
         });
         
         // تجميع المجاميع
