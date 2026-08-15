@@ -14,6 +14,13 @@ columns:
         label: 'aa.aa::lang.model.payroll.month'
         relation: month
         select: name
+    discount:
+        label: 'aa.aa::lang.model.payroll.discount'
+        type: number
+    price:
+        label: 'aa.aa::lang.model.payroll.price'
+        type: number
+        
     status:
         label: aa.aa::lang.model.month.status
         type: jaber-list-switch

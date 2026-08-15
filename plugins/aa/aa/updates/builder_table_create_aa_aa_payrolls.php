@@ -15,7 +15,9 @@ class BuilderTableCreateAaAaPayrolls extends Migration
             $table->integer('salare_id')->unsigned();
             $table->integer('year_id')->unsigned();
             $table->integer('month_id')->unsigned();
+            $table->double('discount', 10, 0);
             $table->double('price', 10, 0);
+
             $table->boolean('status');
             $table->timestamp('created_at')->nullable();
             $table->timestamp('updated_at')->nullable();

@@ -36,7 +36,10 @@ class Payroll extends Model
         'salare_id' => 'required|exists:aa_aa_salares,id',
         'year_id' => 'required|exists:aa_aa_years,id',
         'month_id' => 'required|exists:aa_aa_months,id',
-        'status' => 'required|boolean'
+        'status' => 'required|boolean',
+        'discount' => 'required',
+        'price' => 'required',
+
     ];
 
 
@@ -63,6 +66,7 @@ class Payroll extends Model
 
 
   public function beforeValidate(){
+    $this->price = $this->salare->price - $this->discount;
     if(Year::where('status' , true)->exists() && Month::where('status' , true)->exists()){
       $this->year_id = Year::where('status' , true)->first()->id;
       $this->month_id = Month::where('status' , true)->first()->id;
@@ -71,6 +75,18 @@ class Payroll extends Model
       throw new \ValidationException(['name' => trans('aa.aa::lang.plugin.year_month_status')]);
   
     }
+  }
+
+     public function filterFields($fields, $context = null)
+  {         
+      if ((isset($fields->salare_id) && !empty($fields->salare_id->value)) && isset($fields->discount->value) && (!empty($fields->discount->value) || $fields->discount->value == 0)) {
+                $fields->price->value = Salare::where('id' , $fields->salare_id->value)->get()->first()->price - $fields->discount->value;     
+      }else{
+            $fields->price->value = 0;
+
+          }
+
+
   }
 
 

@@ -104,6 +104,7 @@ return [
             'id' => 'Id',
             'employee' => 'Employee',
             'salare' => 'Salare',
+            'discount' => 'Discount',
             'year' => 'Year',
             'month' => 'Month',
             'price' => 'Price',
