@@ -66,20 +66,6 @@ public function onFilterReports()
 ->where('center_id', $center_id)
 ->get();
 
-//   $total_dollars = Employee::withWhereHas('payrolls', function ($query) use ($year_id, $month_id) {
-//     $query->where('year_id', $year_id)->where('month_id', $month_id)->whereHas('salare', function ($query) {
-//     $query->where('currency', 'dollar');
-// });
-// })
-// ->where('center_id', $center_id)
-// ->get();
-// $total_syrian = Employee::withWhereHas('payrolls', function ($query) use ($year_id, $month_id) {
-//     $query->where('year_id', $year_id)->where('month_id', $month_id)->whereHas('salare', function ($query) {
-//     $query->where('currency', 'syrian');
-// });
-// })
-// ->where('center_id', $center_id)
-// ->get();
 
 
 $total_dollars = Payroll::where('year_id' , $year_id)->where('month_id' , $month_id)->whereHas('salare', function ($query) { $query->where('currency', 'dollar');})->whereIn('employee_id', $employees->pluck('id')->toArray())->get()->sum('price');

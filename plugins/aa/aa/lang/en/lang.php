@@ -23,6 +23,8 @@ return [
          'import_excel' => 'Import Excel',
          'general'=>'General',
          'log_changes_aa'=>'Log changes',
+         'salare_base'=>'Salare base',
+         'salare_final'=>'Salare final',
          'year_month_status'=>'please change status for year and month to true',
         'message_save_pyroll' => 'can not save becasue this record is already paid',
 

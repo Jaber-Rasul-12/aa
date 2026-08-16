@@ -20,6 +20,8 @@ return [
         'create_and_new' => 'انشاء وجديد',
          'reports'=>'جداول الرواتب',
          'analysises'=>'التقارير',
+         'salare_base'=>'اساس راتب',
+         'salare_final'=>'صافي الراتب',
 
 
         'log_changes_aa' => 'سجل التغييرات',
