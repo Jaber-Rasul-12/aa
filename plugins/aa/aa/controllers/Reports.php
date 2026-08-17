@@ -61,7 +61,7 @@ public function onFilterReports()
     }
 
   $employees = Employee::withWhereHas('payrolls', function ($query) use ($year_id, $month_id) {
-    $query->where('year_id', $year_id)->where('month_id', $month_id);
+    $query->where('status' , true)->where('year_id', $year_id)->where('month_id', $month_id);
 })
 ->where('center_id', $center_id)
 ->get();
