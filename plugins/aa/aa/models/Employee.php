@@ -60,10 +60,10 @@ public $fillable = [
         'place_of_birth' => 'nullable|string|max:255',
         'national_id' => 'required|string',
         'rank' => 'required|string|max:100',
-        'center_id' => 'nullable|exists:aa_aa_centers,id',
-        'salare_id' => 'nullable|exists:aa_aa_salares,id',
-        'gender' => 'nullable|in:male,female,other',
-        'nationality' => 'nullable|string|max:100',
+        'center_id' => 'required|exists:aa_aa_centers,id',
+        'salare_id' => 'required|exists:aa_aa_salares,id',
+        'gender' => 'required|in:male,female,other',
+        'nationality' => 'required|string|max:100',
        
         'date_of_enrollment' => 'nullable|date',
     ];
