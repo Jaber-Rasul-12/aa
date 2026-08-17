@@ -23,6 +23,7 @@ use Aa\Aa\Models\Payroll;
 if(count($centers) > 0): 
     // جلب جميع الرواتب مع العلاقات مرة واحدة
     $allPayrolls = Payroll::where('year_id', $year_id)
+        ->where('status' , true)
         ->where('month_id', $month_id)
         ->with(['salare', 'employee'])
         ->get()

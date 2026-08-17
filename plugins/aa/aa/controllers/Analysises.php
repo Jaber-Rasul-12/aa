@@ -79,8 +79,8 @@ public function onFilterReports()
 // ->get();
 
 
-$total_dollars = Payroll::where('year_id' , $year_id)->where('month_id' , $month_id)->whereHas('salare', function ($query) { $query->where('currency', 'dollar');})->whereIn('employee_id', $employees->pluck('id')->toArray())->get()->sum('price');
-$total_syrian = Payroll::where('year_id' , $year_id)->where('month_id' , $month_id)->whereHas('salare', function ($query) { $query->where('currency', 'syrian');})->whereIn('employee_id', $employees->pluck('id')->toArray())->get()->sum('price');
+$total_dollars = Payroll::where('status' , true)->where('year_id' , $year_id)->where('month_id' , $month_id)->whereHas('salare', function ($query) { $query->where('currency', 'dollar');})->whereIn('employee_id', $employees->pluck('id')->toArray())->get()->sum('price');
+$total_syrian = Payroll::where('status' , true)->where('year_id' , $year_id)->where('month_id' , $month_id)->whereHas('salare', function ($query) { $query->where('currency', 'syrian');})->whereIn('employee_id', $employees->pluck('id')->toArray())->get()->sum('price');
     $this->vars['employees'] = $employees;
 
     // ====== نهاية حساب الإحصائيات ======
