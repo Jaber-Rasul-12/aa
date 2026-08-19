@@ -13,6 +13,10 @@ columns:
     father_name:
         label: 'aa.aa::lang.model.employee.father_name'
         type: text
+    status_lists:
+        label: 'aa.aa::lang.model.employee.status'
+        type: text
+        sortable: false
     last_name:
         label: 'aa.aa::lang.model.employee.last_name'
         type: text

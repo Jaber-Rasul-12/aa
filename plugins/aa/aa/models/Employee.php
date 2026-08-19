@@ -64,9 +64,10 @@ public $fillable = [
         'salare_id' => 'required|exists:aa_aa_salares,id',
         'gender' => 'required|in:male,female,other',
         'nationality' => 'required|string|max:100',
-       
+        'status' => 'required|in:merged,not_merged,civil',
         'date_of_enrollment' => 'nullable|date',
     ];
+
 
        public $belongsTo = [
         'center' => [Center::class, 'key' => 'center_id'],
@@ -90,6 +91,13 @@ public $fillable = [
   {
     return $this->attributes['gender'] ?  trans('aa.aa::lang.model.employee.' . $this->attributes['gender']) : 'لا يوجد بيانات';
   }
+
+  public function getStatusListsAttribute()
+  {
+    return $this->attributes['status'] ?  trans('aa.aa::lang.model.employee.' . $this->attributes['status']) : 'لا يوجد بيانات';
+  }
+
+  
      public function getNationalityListsAttribute()
   {
     return $this->attributes['nationality'] ? trans('aa.aa::lang.model.employee.' . $this->attributes['nationality']) : 'لا يوجد بيانات';

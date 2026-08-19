@@ -19,6 +19,7 @@ class BuilderTableCreateAaAaEmployees extends Migration
             $table->string('mother_name');
             $table->string('date_of_birth')->nullable();
             $table->string('place_of_birth')->nullable();
+            $table->string('status')->nullable();
             $table->string('national_id');
             $table->string('rank');
             $table->integer('center_id')->nullable()->unsigned();

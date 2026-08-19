@@ -13,6 +13,9 @@ columns:
     father_name:
         label: 'aa.aa::lang.model.employee.father_name'
         type: text
+    status:
+        label: 'aa.aa::lang.model.employee.status'
+        type: text
     last_name:
         label: 'aa.aa::lang.model.employee.last_name'
         type: text

@@ -32,6 +32,19 @@ tabs:
             span: auto
             type: text
             tab: 'aa.aa::lang.plugin.general'
+        status:
+            label: 'aa.aa::lang.model.employee.status'
+            span: auto
+            type: dropdown
+            tab: 'aa.aa::lang.plugin.general'
+            placeholder: aa.aa::lang.plugin.select
+            options:
+                merged: 'aa.aa::lang.model.employee.merged'
+                not_merged: 'aa.aa::lang.model.employee.not_merged'
+                civil: 'aa.aa::lang.model.employee.civil'
+            
+
+
         date_of_birth:
             label: 'aa.aa::lang.model.employee.date_of_birth'
             span: auto

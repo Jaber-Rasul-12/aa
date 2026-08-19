@@ -72,6 +72,11 @@ return [
             'file_number' => 'رقم الملف',
             'full_name' => 'الاسم الكامل',
             'name' => 'الاسم',
+            'status' => 'الحالة',
+            'merged' => 'مندمجين',
+            'not_merged' => 'غير مندمجين',
+            'civil' => 'عقد مدني',
+
             'father_name' => 'اسم الأب',
             'last_name' => 'النسبة',
             'mother_name' => 'اسم الأم',

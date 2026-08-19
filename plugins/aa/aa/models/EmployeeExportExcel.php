@@ -19,6 +19,8 @@ class EmployeeExportExcel extends \Backend\Models\ExportModel
             $exportData['salare'] = $record->salare ? $record->salare->FullQualityName : 'لا يوجد';
 
             $exportData['gender'] = $record->gender ?  trans('aa.aa::lang.model.employee.' . $record->gender) : 'لا يوجد';
+            $exportData['status'] = $record->status ?  trans('aa.aa::lang.model.employee.' . $record->status) : 'لا يوجد';
+
             $exportData['nationality'] = $record->nationality ?  trans('aa.aa::lang.model.employee.' . $record->nationality) : 'لا يوجد';
 
             
