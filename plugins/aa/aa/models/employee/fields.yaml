@@ -50,6 +50,7 @@ tabs:
             span: auto
             type: datepicker
             mode: date
+            ignoreTimezone: true
             tab: 'aa.aa::lang.plugin.general'
         place_of_birth:
             label: 'aa.aa::lang.model.employee.place_of_birth'
