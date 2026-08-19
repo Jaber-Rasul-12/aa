@@ -60,10 +60,21 @@ public function onFilterReports()
         return;
     }
 
-  $employees = Employee::withWhereHas('payrolls', function ($query) use ($year_id, $month_id) {
-    $query->where('status' , true)->where('year_id', $year_id)->where('month_id', $month_id);
+//   $employees = Employee::withWhereHas('payrolls', function ($query) use ($year_id, $month_id) {
+//     $query->where('status' , true)->where('year_id', $year_id)->where('month_id', $month_id);
+// })
+// ->where('center_id', $center_id)
+// ->get();
+
+$employees = Employee::join('aa_aa_payrolls', function ($join) use ($year_id, $month_id) {
+    $join->on('aa_aa_employees.id', '=', 'aa_aa_payrolls.employee_id')
+         ->where('aa_aa_payrolls.status', true)
+         ->where('aa_aa_payrolls.year_id', $year_id)
+         ->where('aa_aa_payrolls.month_id', $month_id);
 })
-->where('center_id', $center_id)
+->where('aa_aa_employees.center_id', $center_id)
+->orderBy('aa_aa_payrolls.created_at', 'asc') // الفرز حسب تاريخ الاستلام
+->select('aa_aa_employees.*') // لتجنب تكرار الأعمدة
 ->get();
 
 
