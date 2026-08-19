@@ -80,6 +80,7 @@ tabs:
             span: auto
             type: datepicker
             mode: date
+            ignoreTimezone: true
             tab: 'aa.aa::lang.plugin.general'
     
             minDate: '1/1/2014'
