@@ -180,7 +180,7 @@ class Statictes extends Controller
         
         foreach ($centers as $center) {
             $stats[] = (object) [
-                'center_name' => $center->name ?? $center->title ?? 'مركز',
+                'center_name' => $center->name ?? $center->name ?? 'مركز',
                 'total' => $center->employees_count,
                 'percentage' => $total > 0 ? round(($center->employees_count / $total) * 100, 1) : 0
             ];
@@ -273,7 +273,7 @@ class Statictes extends Controller
             $count = Employee::where('nationality', $nationality)->count();
             $stats[] = (object) [
                 'nationality' => $nationality,
-                'nationality_label' => trans('aa.aa::lang.model.employee.' . $nationality),
+                'nationality_label' => $nationality ? trans('aa.aa::lang.model.employee.' . $nationality) : 'لم يتم تحديد الجنسية',
                 'total' => $count,
                 'percentage' => $total > 0 ? round(($count / $total) * 100, 1) : 0
             ];
