@@ -1,0 +1,16 @@
+# ===================================
+#  Import/Export Behavior Config
+# ===================================
+
+
+export:
+    title: aa.aa::lang.plugin.export_excel
+    modelClass: Aa\Aa\Models\PayrollExportExcel
+    fileName: aas_export.csv
+    defaultFormatOptions:
+      delimiter: ';'
+      enclosure: '"'
+      escape: '\'
+      encoding: 'utf-8'
+    list: $/aa/aa/models/payroll/columns_export.yaml
+    form: $/aa/aa/models/payroll/fields_filter_export.yaml

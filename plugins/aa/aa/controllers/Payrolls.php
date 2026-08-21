@@ -5,16 +5,17 @@ use BackendMenu;
 
 class Payrolls extends Controller
 {
-    public $implement = [        'Backend\Behaviors\ListController',        'Backend\Behaviors\FormController' , \Backend\Behaviors\RelationController::class,    ];
+    public $implement = [        'Backend\Behaviors\ListController',        'Backend\Behaviors\FormController' , \Backend\Behaviors\ImportExportController::class      ];
     
     public $listConfig = 'config_list.yaml';
     public $formConfig = 'config_form.yaml';
+      public $importExportConfig = 'import_export_config.yaml';
 
     public $requiredPermissions = [
         'payrolls' 
     ];
 
-    public $relationConfig = 'relation_config.yaml';
+ 
 
     public function __construct()
     {

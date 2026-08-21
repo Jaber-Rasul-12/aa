@@ -1,0 +1,18 @@
+fields:
+    year_id:
+        label: 'aa.aa::lang.model.payroll.year'
+        type: dropdown
+        span: auto
+        placeholder: aa.aa::lang.plugin.select
+    month_id:
+        label: 'aa.aa::lang.model.payroll.month'
+        type: dropdown
+        span: auto
+        dependsOn: year_id
+        placeholder: aa.aa::lang.plugin.select
+    center_id:
+        label: 'aa.aa::lang.model.employee.center'
+        type: dropdown
+        span: auto
+        placeholder: aa.aa::lang.plugin.select
+        

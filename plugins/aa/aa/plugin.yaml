@@ -81,6 +81,12 @@ navigation:
                 icon: icon-calendar-check-o
                 permissions:
                     - months
+            payrolls:
+                label: 'aa.aa::lang.plugin.payrolls'
+                url: aa/aa/payrolls
+                icon: icon-credit-card
+                permissions:
+                    - payrolls
             reports:
                 label: 'aa.aa::lang.plugin.reports'
                 url: aa/aa/reports
@@ -99,11 +105,6 @@ navigation:
                 icon: icon-credit-card
                 permissions:
                     - statictes
-            # payrolls:
-            #     label: 'aa.aa::lang.plugin.payrolls'
-            #     url: aa/aa/payrolls
-            #     icon: icon-credit-card
-            #     permissions:
-            #         - payrolls
+
 
             
