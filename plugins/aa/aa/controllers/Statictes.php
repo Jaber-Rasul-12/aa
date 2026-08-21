@@ -81,7 +81,7 @@ class Statictes extends Controller
             $count = Employee::where('gender', $gender)->count();
             $stats[] = (object) [
                 'gender' => $gender,
-                'gender_label' => trans('aa.aa::lang.model.employee.' . $gender),
+                'gender_label' => $gender ? trans('aa.aa::lang.model.employee.' . $gender) : 'لم يتم تحديد الجنس',
                 'total' => $count,
                 'color' => $this->getGenderColor($gender),
                 'percentage' => $total > 0 ? round(($count / $total) * 100, 1) : 0
