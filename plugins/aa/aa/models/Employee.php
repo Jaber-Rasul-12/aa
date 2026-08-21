@@ -15,7 +15,7 @@ class Employee extends Model
   use LogChanges;
 
          use \Winter\Storm\Database\Traits\Nullable;
-protected $nullable = ['center_id' , 'date_of_enrollment' , 'salare_id' , 'gender' , 'nationality'];
+protected $nullable = ['center_id' , 'date_of_enrollment' , 'salare_id' , 'gender' , 'nationality' , 'notes'];
 public $fillable = [
     'full_name' ,
     'name' , 
@@ -35,6 +35,7 @@ public $fillable = [
     'file_number' , 
     'entry_number' , 
     'date_of_enrollment' , 
+    'notes'
 
     ];
 
@@ -66,6 +67,7 @@ public $fillable = [
         'nationality' => 'required|string|max:100',
         'status' => 'required|in:merged,not_merged,civil,martyrs,prisoners',
         'date_of_enrollment' => 'nullable|date',
+        'notes' => 'nullable|string'
     ];
 
 

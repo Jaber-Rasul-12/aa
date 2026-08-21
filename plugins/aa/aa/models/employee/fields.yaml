@@ -116,6 +116,12 @@ tabs:
                 kurdish: 'aa.aa::lang.model.employee.kurdish'
                 arabic: 'aa.aa::lang.model.employee.arabic'
                 christian: 'aa.aa::lang.model.employee.christian'
+        notes:
+            label: 'aa.aa::lang.model.employee.notes'
+            span: auto
+            type: textarea
+            tab: 'aa.aa::lang.plugin.general'
+       
         payrolls:
             label: 'aa.aa::lang.controller.payrolls.payrolls'
             span: full

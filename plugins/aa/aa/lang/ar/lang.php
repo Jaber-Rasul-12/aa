@@ -79,6 +79,7 @@ return [
             'merged' => 'مندمجين',
             'not_merged' => 'غير مندمجين',
             'civil' => 'عقد مدني',
+            'notes' => 'ملاحظات',
             'father_name' => 'اسم الأب',
             'last_name' => 'النسبة',
             'mother_name' => 'اسم الأم',

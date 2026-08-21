@@ -27,6 +27,9 @@ class BuilderTableCreateAaAaEmployees extends Migration
             $table->integer('salare_id')->nullable()->unsigned();
             $table->string('gender')->nullable();
             $table->string('nationality')->nullable();
+            $table->text('notes')->nullable();
+
+
             $table->timestamp('created_at')->nullable();
             $table->timestamp('updated_at')->nullable();
             $table->foreign('center_id')

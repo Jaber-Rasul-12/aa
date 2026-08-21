@@ -53,6 +53,9 @@ columns:
     nationality:
         label: 'aa.aa::lang.model.employee.nationality'
         type: text
+    notes:
+        label: 'aa.aa::lang.model.employee.notes'
+        type: text        
     created_at:
         label: 'aa.aa::lang.model.employee.created_at'
         type: datetime

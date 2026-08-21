@@ -56,6 +56,13 @@ columns:
         label: 'aa.aa::lang.model.employee.nationality'
         type: text
         sortable: false
+
+    notes:
+        label: 'aa.aa::lang.model.employee.notes'
+        type: jaber-list-truncate        
+        truncate: true 
+        truncate_limit: 12
+        show_more: true 
     created_at:
         label: 'aa.aa::lang.model.employee.created_at'
         type: datetime

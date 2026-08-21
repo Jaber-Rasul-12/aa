@@ -79,6 +79,7 @@ return [
             'prisoners' => 'Prisoners',
             'not_merged' => 'Not merged',
             'civil' => 'Civil',
+            'notes' => 'Notes',
             'father_name' => 'Father name',
             'last_name' => 'Last name',
             'mother_name' => 'Mother name',
