@@ -198,7 +198,7 @@ class Statictes extends Controller
         
         foreach ($salares as $salare) {
             $stats[] = (object) [
-                'salare_name' => $salare->name ?? $salare->title ?? $salare->salare_name ?? 'الراتب',
+                'salare_name' => $salare->FullQualityName,
                 'total' => $salare->employees_count,
                 'percentage' => $total > 0 ? round(($salare->employees_count / $total) * 100, 1) : 0
             ];
