@@ -1,5 +1,5 @@
 name: 'aa.aa::lang.controller.payrolls.payrolls'
-form: $/aa/aa/models/payroll/fields.yaml
+form: $/aa/aa/models/payroll/fields_main.yaml
 modelClass: Aa\Aa\Models\Payroll
 defaultRedirect: aa/aa/payrolls
 create:

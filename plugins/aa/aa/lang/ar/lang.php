@@ -24,6 +24,8 @@ return [
         'salare_base' => 'اساس راتب',
         'salare_final' => 'صافي الراتب',
         'log_changes_aa' => 'سجل التغييرات',
+         'export_excel_payroll' => 'تصدير الرواتب',
+
         'year_month_status' => 'يرجى تغيير حالة السنة والشهر إلى مفعل',
         'message_delete' => 'لا يمكن الحذف لأن هناك بيانات مرتبطة بهذا العنصر',
         'message_save_pyroll' => 'لا يمكن الانشاء بسبب تسليم الراتب مسبقا في هذا الشهر',

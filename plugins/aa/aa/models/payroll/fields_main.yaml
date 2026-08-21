@@ -1,5 +1,10 @@
 fields:
 
+    employee[FullQualityName]: 
+        label: 'aa.aa::lang.model.payroll.employee'
+        relation: employee
+        nameFrom: 
+        sortable: false 
     salare_id:
         label: 'aa.aa::lang.model.payroll.salare'
         span: auto

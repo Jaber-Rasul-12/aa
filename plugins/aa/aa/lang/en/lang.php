@@ -19,7 +19,7 @@ return [
          'reports'=>'Reports',
          'statictes'=>'Statictes',
          'analysises'=>'Analysises',
-
+         'export_excel_payroll' => 'Export Excel Payroll',
          
          'import_excel' => 'Import Excel',
          'general'=>'General',

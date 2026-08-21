@@ -1,4 +1,4 @@
-list: $/aa/aa/models/payroll/columns.yaml
+list: $/aa/aa/models/payroll/columns_main.yaml
 modelClass: Aa\Aa\Models\Payroll
 title: 'aa.aa::lang.controller.payrolls.payrolls'
 noRecordsMessage: 'backend::lang.list.no_records'

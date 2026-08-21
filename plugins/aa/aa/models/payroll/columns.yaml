@@ -1,11 +1,7 @@
 columns:
     id:
         label: 'aa.aa::lang.model.payroll.id'
-        type: number
-    salare[FullQualityName]:
-        label: 'aa.aa::lang.model.payroll.salare'
-        sortable: false
-        
+        type: number        
     year:
         label: 'aa.aa::lang.model.payroll.year'
         relation: year
@@ -14,6 +10,9 @@ columns:
         label: 'aa.aa::lang.model.payroll.month'
         relation: month
         select: name
+    salare[FullQualityName]:
+        label: 'aa.aa::lang.model.payroll.salare'
+        sortable: false
     discount:
         label: 'aa.aa::lang.model.payroll.discount'
         type: number
