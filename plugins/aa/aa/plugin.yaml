@@ -32,8 +32,9 @@ permissions:
     analysises:
         tab: 'aa.aa::lang.plugin.menu_employees'
         label: 'aa.aa::lang.plugin.analysises'
-
-        
+    statictes: 
+        tab: 'aa.aa::lang.plugin.menu_employees'
+        label: 'aa.aa::lang.plugin.statictes'
     log_changes_aa: 
         tab: 'aa.aa::lang.plugin.menu_employees'
         label: 'aa.aa::lang.plugin.log_changes_aa'
@@ -47,6 +48,9 @@ navigation:
         permissions:
             - menu_employees
         sideMenu:
+
+        
+
             centers:
                 label: 'aa.aa::lang.plugin.centers'
                 url: aa/aa/centers
@@ -89,7 +93,12 @@ navigation:
                 icon: icon-credit-card
                 permissions:
                     - analysises
-
+            statictes:
+                label: 'aa.aa::lang.plugin.statictes'
+                url: aa/aa/statictes
+                icon: icon-credit-card
+                permissions:
+                    - statictes
             # payrolls:
             #     label: 'aa.aa::lang.plugin.payrolls'
             #     url: aa/aa/payrolls

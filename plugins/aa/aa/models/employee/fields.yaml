@@ -42,7 +42,11 @@ tabs:
                 merged: 'aa.aa::lang.model.employee.merged'
                 not_merged: 'aa.aa::lang.model.employee.not_merged'
                 civil: 'aa.aa::lang.model.employee.civil'
+                martyrs: 'aa.aa::lang.model.employee.martyrs'
+                prisoners: 'aa.aa::lang.model.employee.prisoners'
+                
             
+
 
 
         date_of_birth:

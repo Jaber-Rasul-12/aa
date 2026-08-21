@@ -17,6 +17,7 @@ return [
          'export_excel' => 'Export Excel',
          'create_and_new'=>'Create and new',
          'reports'=>'Reports',
+         'statictes'=>'Statictes',
          'analysises'=>'Analysises',
 
          
@@ -74,6 +75,8 @@ return [
             'name' => 'Name',
             'status' => 'Status',
             'merged' => 'Merged',
+            'martyrs' => 'Martyrs',
+            'prisoners' => 'Prisoners',
             'not_merged' => 'Not merged',
             'civil' => 'Civil',
             'father_name' => 'Father name',
@@ -148,6 +151,11 @@ return [
         'analysises' => [
             'analysises' => 'Analysises',
         ],
+        'statictes' => [
+            'statictes' => 'Statictes',
+        ],
+
+        
 
         
     ]

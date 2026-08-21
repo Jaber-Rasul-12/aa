@@ -64,7 +64,7 @@ public $fillable = [
         'salare_id' => 'required|exists:aa_aa_salares,id',
         'gender' => 'required|in:male,female,other',
         'nationality' => 'required|string|max:100',
-        'status' => 'required|in:merged,not_merged,civil',
+        'status' => 'required|in:merged,not_merged,civil,martyrs,prisoners',
         'date_of_enrollment' => 'nullable|date',
     ];
 

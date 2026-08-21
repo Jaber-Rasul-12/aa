@@ -18,12 +18,11 @@ return [
         'import_excel' => 'استيراد إكسل',
         'general' => 'عام',
         'create_and_new' => 'انشاء وجديد',
-         'reports'=>'جداول الرواتب',
-         'analysises'=>'التقارير',
-         'salare_base'=>'اساس راتب',
-         'salare_final'=>'صافي الراتب',
-
-
+        'reports' => 'جداول الرواتب',
+         'statictes'=>'أحصائيات',
+        'analysises' => 'التقارير',
+        'salare_base' => 'اساس راتب',
+        'salare_final' => 'صافي الراتب',
         'log_changes_aa' => 'سجل التغييرات',
         'year_month_status' => 'يرجى تغيير حالة السنة والشهر إلى مفعل',
         'message_delete' => 'لا يمكن الحذف لأن هناك بيانات مرتبطة بهذا العنصر',
@@ -72,11 +71,12 @@ return [
             'file_number' => 'رقم الملف',
             'full_name' => 'الاسم الكامل',
             'name' => 'الاسم',
+            'martyrs' => 'شهداء',
+            'prisoners' => 'سجناء',
             'status' => 'الحالة',
             'merged' => 'مندمجين',
             'not_merged' => 'غير مندمجين',
             'civil' => 'عقد مدني',
-
             'father_name' => 'اسم الأب',
             'last_name' => 'النسبة',
             'mother_name' => 'اسم الأم',
@@ -141,12 +141,14 @@ return [
         'payrolls' => [
             'payrolls' => 'كشوف الرواتب',
         ],
-        
         'reports' => [
             'reports' => 'جداول الرواتب',
         ],
         'analysises' => [
             'analysises' => 'التقارير',
+        ],
+        'statictes' => [
+            'statictes' => 'أحصائيات',
         ],
     ]
 ];

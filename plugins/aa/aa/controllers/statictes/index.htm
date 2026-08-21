@@ -1,0 +1,250 @@
+<?= Form::open(['class' => 'layout']) ?>
+    <div class="layout-row">
+        <div class="layout-cell">
+            <div class="statistics-dashboard">
+                
+                <!-- بطاقات الإحصائيات السريعة -->
+                <div class="stats-cards">
+                    <div class="stats-card">
+                        <div class="stats-card-icon total">
+                            <i class="icon-users"></i>
+                        </div>
+                        <div class="stats-card-content">
+                            <h3><?= e($statistics['total_employees']) ?></h3>
+                            <p>إجمالي الموظفين</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stats-card">
+                        <div class="stats-card-icon male">
+                            <i class="icon-male"></i>
+                        </div>
+                        <div class="stats-card-content">
+                            <h3><?= e($statistics['gender_stats']->where('gender', 'male')->first()->total ?? 0) ?></h3>
+                            <p>ذكور</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stats-card">
+                        <div class="stats-card-icon female">
+                            <i class="icon-female"></i>
+                        </div>
+                        <div class="stats-card-content">
+                            <h3><?= e($statistics['gender_stats']->where('gender', 'female')->first()->total ?? 0) ?></h3>
+                            <p>إناث</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stats-card">
+                        <div class="stats-card-icon other">
+                            <i class="icon-user"></i>
+                        </div>
+                        <div class="stats-card-content">
+                            <h3><?= e($statistics['gender_stats']->where('gender', 'other')->first()->total ?? 0) ?></h3>
+                            <p>أخرى</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- بطاقات الحالات -->
+                <div class="status-cards">
+                    <?php foreach($statistics['status_summary'] as $status): ?>
+                    <div class="status-card" style="border-left-color: <?= e($status['color']) ?>">
+                        <div class="status-card-icon" style="color: <?= e($status['color']) ?>">
+                            <i class="<?= e($status['icon']) ?>"></i>
+                        </div>
+                        <div class="status-card-content">
+                            <h4><?= e($status['label']) ?></h4>
+                            <div class="status-card-numbers">
+                                <span class="count"><?= e($status['count']) ?></span>
+                                <span class="percentage" style="color: <?= e($status['color']) ?>">
+                                    <?= e($status['percentage']) ?>%
+                                </span>
+                            </div>
+                            <div class="progress">
+                                <div class="progress-bar" style="width: <?= e($status['percentage']) ?>%; background: <?= e($status['color']) ?>"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <?php endforeach; ?>
+                </div>
+                
+                <!-- الرسوم البيانية -->
+                <div class="charts-grid">
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <h4>توزيع الموظفين حسب الجنس</h4>
+                            <div class="chart-actions">
+                                <button class="btn btn-sm btn-primary" onclick="exportChart('genderChart', 'توزيع الموظفين حسب الجنس')">
+                                    <i class="icon-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="chart-body">
+                            <canvas id="genderChart"></canvas>
+                        </div>
+                    </div>
+                    
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <h4>توزيع الموظفين حسب الحالة</h4>
+                            <div class="chart-actions">
+                                <button class="btn btn-sm btn-primary" onclick="exportChart('statusChart', 'توزيع الموظفين حسب الحالة')">
+                                    <i class="icon-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="chart-body">
+                            <canvas id="statusChart"></canvas>
+                        </div>
+                    </div>
+                    
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <h4>توزيع الموظفين حسب المركز</h4>
+                            <div class="chart-actions">
+                                <button class="btn btn-sm btn-primary" onclick="exportChart('centerChart', 'توزيع الموظفين حسب المركز')">
+                                    <i class="icon-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="chart-body">
+                            <canvas id="centerChart"></canvas>
+                        </div>
+                    </div>
+                    
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <h4>توزيع الموظفين حسب الجنسية </h4>
+                            <div class="chart-actions">
+                                <button class="btn btn-sm btn-primary" onclick="exportChart('salareChart', 'توزيع الموظفين حسب الصالة')">
+                                    <i class="icon-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="chart-body">
+                            <canvas id="salareChart"></canvas>
+                        </div>
+                    </div>
+                    
+                    <div class="chart-card full-width">
+                        <div class="chart-header">
+                            <h4>توزيع الموظفين حسب سنة الانتساب</h4>
+                            <div class="chart-actions">
+                                <button class="btn btn-sm btn-primary" onclick="exportChart('yearChart', 'توزيع الموظفين حسب سنة التسجيل')">
+                                    <i class="icon-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="chart-body">
+                            <canvas id="yearChart"></canvas>
+                        </div>
+                    </div>
+                    
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <h4>توزيع الموظفين حسب الرتبة</h4>
+                            <div class="chart-actions">
+                                <button class="btn btn-sm btn-primary" onclick="exportChart('rankChart', 'توزيع الموظفين حسب الرتبة')">
+                                    <i class="icon-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="chart-body">
+                            <canvas id="rankChart"></canvas>
+                        </div>
+                    </div>
+                    
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <h4>توزيع الموظفين حسب الجنسية</h4>
+                            <div class="chart-actions">
+                                <button class="btn btn-sm btn-primary" onclick="exportChart('nationalityChart', 'توزيع الموظفين حسب الجنسية')">
+                                    <i class="icon-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="chart-body">
+                            <canvas id="nationalityChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+                
+
+                
+            </div>
+        </div>
+    </div>
+<?= Form::close() ?>
+
+<script>
+    // بيانات الإحصائيات
+    const statistics = <?= json_encode($statistics) ?>;
+    const colors = ['#3498db', '#2ecc71', '#e74c3c', '#f39c12', '#9b59b6', '#1abc9c', '#e67e22', '#34495e', '#2c3e50', '#16a085'];
+    
+    // تهيئة الرسوم البيانية
+    document.addEventListener('DOMContentLoaded', function() {
+        initCharts();
+    });
+    
+    function initCharts() {
+        // رسم بياني للنوع
+        const genderData = statistics.gender_stats.map(item => item.total);
+        const genderLabels = statistics.gender_stats.map(item => item.gender_label);
+        const genderColors = statistics.gender_stats.map(item => item.color);
+        
+        if (genderData.length > 0) {
+            createPieChart('genderChart', genderLabels, genderData, genderColors);
+        }
+        
+        // رسم بياني للحالة
+        const statusData = statistics.status_stats.map(item => item.total);
+        const statusLabels = statistics.status_stats.map(item => item.status_label);
+        const statusColors = statistics.status_stats.map(item => item.color);
+        
+        if (statusData.length > 0) {
+            createPieChart('statusChart', statusLabels, statusData, statusColors);
+        }
+        
+        // رسم بياني للمركز
+        const centerData = statistics.center_stats.map(item => item.total);
+        const centerLabels = statistics.center_stats.map(item => item.center_name);
+        
+        if (centerData.length > 0) {
+            createBarChart('centerChart', centerLabels, centerData, '#3498db');
+        }
+        
+        // رسم بياني للصالة
+        const salareData = statistics.salare_stats.map(item => item.total);
+        const salareLabels = statistics.salare_stats.map(item => item.salare_name);
+        
+        if (salareData.length > 0) {
+            createBarChart('salareChart', salareLabels, salareData, '#9b59b6');
+        }
+        
+        // رسم بياني للسنوات
+        const yearData = statistics.year_stats.map(item => item.total);
+        const yearLabels = statistics.year_stats.map(item => item.year);
+        
+        if (yearData.length > 0) {
+            createLineChart('yearChart', yearLabels, yearData, '#2ecc71');
+        }
+        
+        // رسم بياني للرتب
+        const rankData = statistics.rank_stats.map(item => item.total);
+        const rankLabels = statistics.rank_stats.map(item => item.rank);
+        
+        if (rankData.length > 0) {
+            createBarChart('rankChart', rankLabels, rankData, '#e67e22');
+        }
+        
+        // رسم بياني للجنسية
+        const nationalityData = statistics.nationality_stats.map(item => item.total);
+        const nationalityLabels = statistics.nationality_stats.map(item => item.nationality_label);
+        
+        if (nationalityData.length > 0) {
+            const randomColors = nationalityData.map(() => colors[Math.floor(Math.random() * colors.length)]);
+            createPieChart('nationalityChart', nationalityLabels, nationalityData, randomColors);
+        }
+    }
+</script>
