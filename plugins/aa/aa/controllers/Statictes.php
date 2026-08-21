@@ -98,7 +98,7 @@ class Statictes extends Controller
             'female' => '#e74c3c',
             'other' => '#95a5a6'
         ];
-        return $colors[$gender] ?? '#95a5a6';
+        return $colors[$gender] ?? '#18ca00';
     }
     
     private function getStatusStats()
@@ -115,7 +115,7 @@ class Statictes extends Controller
             $count = Employee::where('status', $status)->count();
             $stats[] = (object) [
                 'status' => $status,
-                'status_label' => trans('aa.aa::lang.model.employee.' . $status),
+                'status_label' => $status ? trans('aa.aa::lang.model.employee.' . $status) : 'لم يتم تحديد الحالة',
                 'total' => $count,
                 'color' => $this->getStatusColor($status),
                 'icon' => $this->getStatusIcon($status),
@@ -198,7 +198,7 @@ class Statictes extends Controller
         
         foreach ($salares as $salare) {
             $stats[] = (object) [
-                'salare_name' => $salare->name ?? $salare->title ?? $salare->salare_name ?? 'صالة',
+                'salare_name' => $salare->name ?? $salare->title ?? $salare->salare_name ?? 'الراتب',
                 'total' => $salare->employees_count,
                 'percentage' => $total > 0 ? round(($salare->employees_count / $total) * 100, 1) : 0
             ];
