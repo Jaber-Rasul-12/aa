@@ -104,6 +104,20 @@
                             <canvas id="statusChart"></canvas>
                         </div>
                     </div>
+
+                     <div class="chart-card">
+                        <div class="chart-header">
+                            <h4>توزيع الموظفين حسب الجنسية</h4>
+                            <div class="chart-actions">
+                                <button class="btn btn-sm btn-primary" onclick="exportChart('nationalityChart', 'توزيع الموظفين حسب الجنسية')">
+                                    <i class="icon-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="chart-body">
+                            <canvas id="nationalityChart"></canvas>
+                        </div>
+                    </div>
                     
                     <div class="chart-card">
                         <div class="chart-header">
@@ -132,6 +146,19 @@
                             <canvas id="salareChart"></canvas>
                         </div>
                     </div>
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <h4>توزيع الموظفين حسب الرتبة</h4>
+                            <div class="chart-actions">
+                                <button class="btn btn-sm btn-primary" onclick="exportChart('rankChart', 'توزيع الموظفين حسب الرتبة')">
+                                    <i class="icon-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="chart-body">
+                            <canvas id="rankChart"></canvas>
+                        </div>
+                    </div>
                     
                     <div class="chart-card full-width">
                         <div class="chart-header">
@@ -147,33 +174,8 @@
                         </div>
                     </div>
                     
-                    <div class="chart-card">
-                        <div class="chart-header">
-                            <h4>توزيع الموظفين حسب الرتبة</h4>
-                            <div class="chart-actions">
-                                <button class="btn btn-sm btn-primary" onclick="exportChart('rankChart', 'توزيع الموظفين حسب الرتبة')">
-                                    <i class="icon-download"></i>
-                                </button>
-                            </div>
-                        </div>
-                        <div class="chart-body">
-                            <canvas id="rankChart"></canvas>
-                        </div>
-                    </div>
                     
-                    <div class="chart-card">
-                        <div class="chart-header">
-                            <h4>توزيع الموظفين حسب الجنسية</h4>
-                            <div class="chart-actions">
-                                <button class="btn btn-sm btn-primary" onclick="exportChart('nationalityChart', 'توزيع الموظفين حسب الجنسية')">
-                                    <i class="icon-download"></i>
-                                </button>
-                            </div>
-                        </div>
-                        <div class="chart-body">
-                            <canvas id="nationalityChart"></canvas>
-                        </div>
-                    </div>
+                   
                 </div>
                 
 
