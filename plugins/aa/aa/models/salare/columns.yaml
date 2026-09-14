@@ -9,7 +9,7 @@ columns:
     price:
         label: 'aa.aa::lang.model.salare.price'
         type: text
-        sortable: true
+        searchable: true
     created_at:
         label: 'aa.aa::lang.model.salare.created_at'
         type: datetime
