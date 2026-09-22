@@ -15,6 +15,7 @@ fields:
         label: 'aa.aa::lang.model.payroll.discount'
         type: number
         span: auto
+        default: 0
         
     price:
         label: 'aa.aa::lang.model.payroll.price'
