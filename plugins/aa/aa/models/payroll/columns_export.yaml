@@ -24,7 +24,10 @@ columns:
     price:
         label: 'aa.aa::lang.model.payroll.price'
         type: number
-    
+    center:
+        label: 'aa.aa::lang.model.employee.center'
+        relation: center
+        select: name
     status:
         label: aa.aa::lang.model.month.status
         type: jaber-list-switch

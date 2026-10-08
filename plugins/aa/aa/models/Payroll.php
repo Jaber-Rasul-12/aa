@@ -36,6 +36,7 @@ class Payroll extends Model
         'salare_id' => 'required|exists:aa_aa_salares,id',
         'year_id' => 'required|exists:aa_aa_years,id',
         'month_id' => 'required|exists:aa_aa_months,id',
+        'center_id' => 'required|exists:aa_aa_centers,id',
         'status' => 'required|boolean',
         'discount' => 'required',
         'price' => 'required',
@@ -47,7 +48,8 @@ class Payroll extends Model
         'employee' => [Employee::class, 'key' => 'employee_id'],
         'salare' => [Salare::class, 'key' => 'salare_id'],
         'year' => [Year::class, 'key' => 'year_id'],
-        'month' => [Month::class, 'key' => 'month_id']
+        'month' => [Month::class, 'key' => 'month_id'],
+        'center' => [Center::class, 'key' => 'center_id']
     ];
 
 
@@ -70,6 +72,8 @@ class Payroll extends Model
     if(Year::where('status' , true)->exists() && Month::where('status' , true)->exists()){
       $this->year_id = Year::where('status' , true)->first()->id;
       $this->month_id = Month::where('status' , true)->first()->id;
+      $this->center_id = $this->employee->center_id;
+
     }else{
         
       throw new \ValidationException(['name' => trans('aa.aa::lang.plugin.year_month_status')]);

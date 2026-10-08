@@ -18,6 +18,12 @@ class BuilderTableCreateAaAaPayrolls extends Migration
             $table->double('discount', 10, 0);
             $table->double('price', 10, 0);
 
+             $table->integer('center_id')->nullable()->unsigned();
+            $table->foreign('center_id')
+                    ->references('id')
+                    ->on('aa_aa_centers')
+                    ->onDelete('cascade')->onUpdate('cascade');
+
             $table->boolean('status');
             $table->timestamp('created_at')->nullable();
             $table->timestamp('updated_at')->nullable();
