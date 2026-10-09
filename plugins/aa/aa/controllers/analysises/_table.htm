@@ -1,12 +1,11 @@
 <hr>
 <table class="table table-bordered table-hover table-striped" style="width: 100%; border-collapse: collapse;">
 
- <img src="<?= e(Backend\Models\BrandSetting::getFavicon()) ?>" 
-                 class="watermark-bg" 
-                 alt="Watermark" 
-                 id="img-image-background">
+    <img src="<?= e(Backend\Models\BrandSetting::getFavicon()) ?>"
+         class="watermark-bg"
+         alt="Watermark"
+         id="img-image-background">
 
-   
     <thead style="background: #2c3e50; color: white;">
         <tr>
             <th style="padding: 12px; text-align: center;">اسم المركز</th>
@@ -17,87 +16,78 @@
         </tr>
     </thead>
     <tbody>
-       <?php
-use Aa\Aa\Models\Payroll;
+    <?php
+    use Aa\Aa\Models\Payroll;
 
-if(count($centers) > 0): 
-    // جلب جميع الرواتب مع العلاقات مرة واحدة
-    $allPayrolls = Payroll::where('year_id', $year_id)
-        ->where('status' , true)
-        ->where('month_id', $month_id)
-        ->with(['salare', 'employee'])
-        ->get()
-        ->groupBy('employee_id'); // تجميع حسب الموظف
-    
-    $va1 = $va2 = $va3 = $va4 = 0;
-?>
-    <?php foreach($centers as $center): 
-        // جلب موظفي هذا المركز
-        $employeeIds = $employees->where('center_id', $center->id)->pluck('id')->toArray();
-        
-        // فلترة الرواتب لهؤلاء الموظفين
-        $centerPayrolls = collect();
-        foreach($employeeIds as $empId) {
-            if(isset($allPayrolls[$empId])) {
-                $centerPayrolls = $centerPayrolls->merge($allPayrolls[$empId]);
-            }
-        }
-        
-        // حساب السوري
-        $syrianPayrolls = $centerPayrolls->filter(function($payroll) {
-            return $payroll->salare && $payroll->salare->currency == 'syrian';
-        });
-        
-        // حساب الدولار
-        $dollarPayrolls = $centerPayrolls->filter(function($payroll) {
-            return $payroll->salare && $payroll->salare->currency == 'dollar';
-        });
-        
-        $val1 = $syrianPayrolls->count();
-        $val2 = $dollarPayrolls->count();
-        $val3 = $syrianPayrolls->sum(function($payroll) {
-            return $payroll->salare ? $payroll->price : 0;
-        });
-        $val4 = $dollarPayrolls->sum(function($payroll) {
-            return $payroll->salare ? $payroll->price : 0;
-        });
-        
-        // تجميع المجاميع
-        $va1 += $val1;
-        $va2 += $val2;
-        $va3 += $val3;
-        $va4 += $val4;
+    if (count($centers) > 0):
+
+        // ✅ جلب كل رواتب السنة/الشهر مرة واحدة، مجمّعة حسب مركز الراتب
+        $allPayrolls = Payroll::where('year_id', $year_id)
+            ->where('status', true)
+            ->where('month_id', $month_id)
+            ->with(['salare', 'employee'])
+            ->get()
+            ->groupBy('center_id');   // ✅ التجميع على مركز الراتب وليس الموظف
+
+        $va1 = $va2 = $va3 = $va4 = 0;
     ?>
+        <?php foreach ($centers as $center):
+
+            // ✅ رواتب هذا المركز مباشرة (بدون المرور على الموظفين)
+            $centerPayrolls = $allPayrolls->get($center->id, collect());
+
+            // رواتب السوري
+            $syrianPayrolls = $centerPayrolls->filter(function ($payroll) {
+                return $payroll->salare && $payroll->salare->currency == 'syrian';
+            });
+
+            // رواتب الدولار
+            $dollarPayrolls = $centerPayrolls->filter(function ($payroll) {
+                return $payroll->salare && $payroll->salare->currency == 'dollar';
+            });
+
+            $val1 = $syrianPayrolls->count();
+            $val2 = $dollarPayrolls->count();
+            $val3 = $syrianPayrolls->sum('price');
+            $val4 = $dollarPayrolls->sum('price');
+
+            // تجميع المجاميع
+            $va1 += $val1;
+            $va2 += $val2;
+            $va3 += $val3;
+            $va4 += $val4;
+        ?>
+            <tr style="background: white;">
+                <td style="padding: 10px; text-align: center; border-bottom: 1px solid #ddd;"><?= $center->name ?></td>
+                <td style="padding: 10px; text-align: center; border-bottom: 1px solid #ddd;"><?= $val1 ?></td>
+                <td style="padding: 10px; text-align: center; border-bottom: 1px solid #ddd;"><?= $val2 ?></td>
+                <td style="padding: 10px; text-align: center; border-bottom: 1px solid #ddd;"><?= number_format($val3, 2) ?> ل.س</td>
+                <td style="padding: 10px; text-align: center; border-bottom: 1px solid #ddd;"><?= number_format($val4, 2) ?> $</td>
+            </tr>
+        <?php endforeach; ?>
+
         <tr style="background: white;">
-            <td style="padding: 10px; text-align: center; border-bottom: 1px solid #ddd;"><?= $center->name ?></td>
-            <td style="padding: 10px; text-align: center; border-bottom: 1px solid #ddd;"><?= $val1 ?></td>
-            <td style="padding: 10px; text-align: center; border-bottom: 1px solid #ddd;"><?= $val2 ?></td>
-            <td style="padding: 10px; text-align: center; border-bottom: 1px solid #ddd;"><?= number_format($val3, 2) ?> ل.س</td>
-            <td style="padding: 10px; text-align: center; border-bottom: 1px solid #ddd;"><?= number_format($val4, 2) ?> $</td>
+            <td style="padding: 10px; text-align: center; border-bottom: 1px solid #ddd; font-weight: bold;">المجموع</td>
+            <td style="padding: 10px; text-align: center; border-bottom: 1px solid #ddd; font-weight: bold;"><?= $va1 ?></td>
+            <td style="padding: 10px; text-align: center; border-bottom: 1px solid #ddd; font-weight: bold;"><?= $va2 ?></td>
+            <td style="padding: 10px; text-align: center; border-bottom: 1px solid #ddd; font-weight: bold;"><?= number_format($va3, 2) ?> ل.س</td>
+            <td style="padding: 10px; text-align: center; border-bottom: 1px solid #ddd; font-weight: bold;"><?= number_format($va4, 2) ?> $</td>
         </tr>
-    <?php endforeach; ?>
-    <tr style="background: white;">
-        <td style="padding: 10px; text-align: center; border-bottom: 1px solid #ddd; font-weight: bold;">المجموع</td>
-        <td style="padding: 10px; text-align: center; border-bottom: 1px solid #ddd; font-weight: bold;"><?= $va1 ?></td>
-        <td style="padding: 10px; text-align: center; border-bottom: 1px solid #ddd; font-weight: bold;"><?= $va2 ?></td>
-        <td style="padding: 10px; text-align: center; border-bottom: 1px solid #ddd; font-weight: bold;"><?= number_format($va3, 2) ?> ل.س</td>
-        <td style="padding: 10px; text-align: center; border-bottom: 1px solid #ddd; font-weight: bold;"><?= number_format($va4, 2) ?> $</td>
-    </tr>
-<?php else: ?>
-    <tr>
-        <td colspan="12" style="padding: 40px; text-align: center; color: #999;">
-            <i class="fa fa-employee" style="font-size: 48px; display: block; margin-bottom: 10px;"></i>
-            لا توجد مراكز مطابقة للفلترة
-        </td>
-    </tr>
-<?php endif; ?>
+    <?php else: ?>
+        <tr>
+            <td colspan="5" style="padding: 40px; text-align: center; color: #999;">
+                <i class="fa fa-employee" style="font-size: 48px; display: block; margin-bottom: 10px;"></i>
+                لا توجد مراكز مطابقة للفلترة
+            </td>
+        </tr>
+    <?php endif; ?>
 
     </tbody>
 </table>
 
-<?php if(count($centers) > 0): ?>
+<?php if (count($centers) > 0): ?>
 <div style="padding: 15px; background: #f8f9fa; border-radius: 4px; margin-top: 10px; text-align: left;">
-    <strong>إجمالي الفواتير: </strong> 
+    <strong>إجمالي المراكز: </strong>
     <span class="badge badge-primary" style="font-size: 16px; padding: 8px 15px;"><?= count($centers) ?></span>
 </div>
 <?php endif; ?>
@@ -110,14 +100,14 @@ if(count($centers) > 0):
         overflow: hidden;
         background: white;
     }
-    
+
     .watermark-bg {
         position: absolute;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
         opacity: 0.12;
-        z-index: 1 !important; /* جعل الصورة فوق كل شيء */
+        z-index: 1 !important;
         pointer-events: none;
         user-select: none;
         width: 60%;
@@ -126,41 +116,38 @@ if(count($centers) > 0):
     }
 
     /* اجعل النص ينزل لسطر جديد */
-.table td {
-    white-space: normal !important; /* يمنع النص من البقاء في سطر واحد */
-    word-wrap: break-word !important; /* يكسر الكلمات الطويلة */
-    word-break: break-word !important; /* يكسر الكلمات عند الحاجة */
-    overflow-wrap: break-word !important; /* يكسر النص الطويل */
-    max-width: 200px; /* حد أقصى للعرض قبل النزول لسطر جديد */
-}
+    .table td {
+        white-space: normal !important;
+        word-wrap: break-word !important;
+        word-break: break-word !important;
+        overflow-wrap: break-word !important;
+        max-width: 200px;
+    }
 
-/* تحديداً لحقل disbursement_statement */
-td:nth-child(11) { /* أو استخدم class بدلاً من ذلك */
-    white-space: normal !important;
-    word-wrap: break-word !important;
-    word-break: break-word !important;
-    overflow-wrap: break-word !important;
-    max-width: 180px;
-    min-width: 100px;
-}
-    
-    /* جعل المحتوى فوق الصورة */
+    td:nth-child(11) {
+        white-space: normal !important;
+        word-wrap: break-word !important;
+        word-break: break-word !important;
+        overflow-wrap: break-word !important;
+        max-width: 180px;
+        min-width: 100px;
+    }
+
     .preview-header,
     .preview-body {
         position: relative;
-        z-index: 2 !important; /* المحتوى فوق الصورة */
+        z-index: 2 !important;
     }
-    
-    /* جعل الخلفية العلوية أفتح مع شفافية */
+
     .preview-header {
         background: linear-gradient(135deg, rgba(45, 55, 72, 0.92) 0%, rgba(74, 85, 104, 0.92) 100%) !important;
         position: relative;
         z-index: 2 !important;
     }
-    
+
     /* ===== PRINT STYLES ===== */
     @media print {
-        .preview-body, 
+        .preview-body,
         .status-bar,
         .info-grid,
         .section-divider,
@@ -168,7 +155,7 @@ td:nth-child(11) { /* أو استخدم class بدلاً من ذلك */
         .preview-header {
             z-index: 2 !important;
         }
-        
+
         .watermark-bg {
             z-index: 1 !important;
             opacity: 0.1 !important;
@@ -176,9 +163,8 @@ td:nth-child(11) { /* أو استخدم class بدلاً من ذلك */
             print-color-adjust: exact !important;
             color-adjust: exact !important;
         }
-        
-        /* إخفاء كل العناصر غير المطلوبة للطباعة */
-        .no-print, 
+
+        .no-print,
         .breadcrumb,
         .preview-toolbar,
         .btn-return,
@@ -191,13 +177,12 @@ td:nth-child(11) { /* أو استخدم class بدلاً من ذلك */
         .layout-row:not(:last-child) {
             display: none !important;
         }
-        
-        /* إظهار منطقة الطباعة فقط */
-        #print-area, 
+
+        #print-area,
         #print-area * {
             visibility: visible !important;
         }
-        
+
         #print-area {
             position: fixed !important;
             left: 0 !important;
@@ -209,8 +194,7 @@ td:nth-child(11) { /* أو استخدم class بدلاً من ذلك */
             z-index: 99999 !important;
             overflow: visible !important;
         }
-        
-        /* تحسين شكل البطاقة للطباعة */
+
         .preview-employeed {
             box-shadow: none !important;
             border: 1px solid #d0d0d0 !important;
@@ -218,34 +202,28 @@ td:nth-child(11) { /* أو استخدم class بدلاً من ذلك */
             margin: 0 !important;
             max-width: 100% !important;
         }
-        
-        /* إجبار الألوان للطباعة */
+
         .preview-header {
             background: linear-gradient(135deg, #2d3748 0%, #4a5568 100%) !important;
             -webkit-print-color-adjust: exact !important;
             print-color-adjust: exact !important;
             color-adjust: exact !important;
         }
-        
-        .preview-header * {
-            color: white !important;
-        }
-        
+
+        .preview-header * { color: white !important; }
+
         .header-icon {
             background: rgba(255,255,255,0.1) !important;
             border-color: rgba(255,255,255,0.05) !important;
         }
-        
-        .header-icon i {
-            color: #4f6ef7 !important;
-        }
-        
+
+        .header-icon i { color: #4f6ef7 !important; }
+
         .year-value {
             background: rgba(79, 110, 247, 0.2) !important;
             border-color: rgba(79, 110, 247, 0.3) !important;
         }
-        
-        /* إجبار ألوان البادجات */
+
         .status-badge,
         .fuel-tag,
         .status-badge.green,
@@ -258,20 +236,19 @@ td:nth-child(11) { /* أو استخدم class بدلاً من ذلك */
             print-color-adjust: exact !important;
             color-adjust: exact !important;
         }
-        
+
         .status-badge.green { background: #c6f6d5 !important; color: #22543d !important; }
         .status-badge.blue { background: #bee3f8 !important; color: #2a4365 !important; }
         .status-badge.orange { background: #feebc8 !important; color: #7b341e !important; }
         .status-badge.purple { background: #e9d8fd !important; color: #44337a !important; }
         .status-badge.red { background: #fed7d7 !important; color: #742a2a !important; }
         .status-badge.gray { background: #e2e8f0 !important; color: #2d3748 !important; }
-        
+
         .fuel-tag.petrol { background: #ebf4ff !important; color: #2b6cb0 !important; }
         .fuel-tag.diesel { background: #fefcbf !important; color: #975a16 !important; }
         .fuel-tag.electric { background: #c6f6d5 !important; color: #22543d !important; }
         .fuel-tag.hybrid { background: #e9d8fd !important; color: #44337a !important; }
-        
-        /* منع تقسيم المحتوى بين الصفحات */
+
         .preview-employeed,
         .preview-header,
         .preview-body,
@@ -282,66 +259,39 @@ td:nth-child(11) { /* أو استخدم class بدلاً من ذلك */
             page-break-inside: avoid !important;
         }
 
-        .status-item .label{
-            border: 0px;
-        }
-        
-        /* صور الطباعة */
+        .status-item .label { border: 0px; }
+
         .image-item {
             border: 1px solid #e0e0e0 !important;
             break-inside: avoid !important;
             page-break-inside: avoid !important;
         }
-        
+
         .image-item img {
             max-width: 100% !important;
             height: auto !important;
         }
-        
+
         .image-grid {
             display: grid !important;
             grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)) !important;
             gap: 10px !important;
         }
-        
-        /* إخفاء عداد الصور في الطباعة */
-        .image-item .image-count {
-            display: none !important;
-        }
-        
-        /* تحسين هوامش الطباعة */
+
+        .image-item .image-count { display: none !important; }
+
         @page {
             margin: 1.5cm !important;
             size: A4 !important;
         }
-        
-        /* تحسين النصوص للطباعة */
-        .field-label {
-            color: #666 !important;
-        }
-        
-        .field-value {
-            color: #000 !important;
-            border-bottom-color: #e0e0e0 !important;
-        }
-        
-        .meta-item {
-            color: #666 !important;
-        }
-        
-        .meta-item strong {
-            color: #000 !important;
-        }
-        
-        .section-divider .title {
-            color: #000 !important;
-        }
-        
-        .section-divider .line {
-            background: #ccc !important;
-        }
-        
-        /* عرض الشعار في الطباعة */
+
+        .field-label { color: #666 !important; }
+        .field-value { color: #000 !important; border-bottom-color: #e0e0e0 !important; }
+        .meta-item { color: #666 !important; }
+        .meta-item strong { color: #000 !important; }
+        .section-divider .title { color: #000 !important; }
+        .section-divider .line { background: #ccc !important; }
+
         .print-logo {
             display: block !important;
             text-align: center;
@@ -352,28 +302,22 @@ td:nth-child(11) { /* أو استخدم class بدلاً من ذلك */
             border-bottom: 2px solid #1a2332;
             padding-bottom: 10px;
         }
-        
+
         .print-logo small {
             display: block;
             font-size: 12px;
             font-weight: normal;
             color: #666;
         }
-        
-        /* إخفاء اللوقو في الشاشة */
-        .print-logo {
-            display: none;
-        }
-        
-        /* تحسين الطباعة للجداول */
+
+        .print-logo { display: none; }
+
         .status-bar {
             border: 1px solid #e0e0e0 !important;
             background: #f9f9f9 !important;
         }
-        
-        .field-value.highlight {
-            color: #4f6ef7 !important;
-        }
+
+        .field-value.highlight { color: #4f6ef7 !important; }
     }
 
     /* ===== MAIN CONTAINER ===== */
@@ -396,24 +340,24 @@ td:nth-child(11) { /* أو استخدم class بدلاً من ذلك */
         flex-wrap: wrap;
         gap: 10px;
     }
-    
+
     .preview-toolbar .toolbar-title {
         font-size: 16px;
         font-weight: 600;
         color: #1a2332;
     }
-    
+
     .preview-toolbar .toolbar-title i {
         color: #4f6ef7;
         margin-right: 8px;
     }
-    
+
     .toolbar-actions {
         display: flex;
         gap: 10px;
         align-items: center;
     }
-    
+
     .btn-preview {
         padding: 8px 20px;
         border: none;
@@ -427,32 +371,32 @@ td:nth-child(11) { /* أو استخدم class بدلاً من ذلك */
         gap: 8px;
         text-decoration: none;
     }
-    
+
     .btn-preview-primary {
         background: linear-gradient(135deg, #4f6ef7 0%, #6c5ce7 100%);
         color: white;
         box-shadow: 0 4px 12px rgba(79, 110, 247, 0.35);
     }
-    
+
     .btn-preview-primary:hover {
         transform: translateY(-2px);
         box-shadow: 0 6px 20px rgba(79, 110, 247, 0.45);
         color: white;
         text-decoration: none;
     }
-    
+
     .btn-preview-secondary {
         background: #f1f4f9;
         color: #4a5568;
     }
-    
+
     .btn-preview-secondary:hover {
         background: #e2e8f0;
         text-decoration: none;
         color: #1a2332;
     }
 
-    /* ===== MAIN employeeD ===== */
+    /* ===== MAIN CARD ===== */
     .preview-employeed {
         background: white;
         border-radius: 16px;
@@ -462,24 +406,7 @@ td:nth-child(11) { /* أو استخدم class بدلاً من ذلك */
         position: relative;
     }
 
-    /* ===== WATERMARK BACKGROUND ===== */
-    .watermark-bg {
-        position: absolute;
-        top: 70%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        opacity: 0.12;
-        z-index: 1 !important;
-        pointer-events: none;
-        user-select: none;
-        width: 60%;
-        height: auto;
-        transition: opacity 0.3s ease;
-    }
-    
-    .preview-employeed:hover .watermark-bg {
-        opacity: 0.18;
-    }
+    .preview-employeed:hover .watermark-bg { opacity: 0.18; }
 
     /* ===== HEADER ===== */
     .preview-header {
@@ -494,7 +421,7 @@ td:nth-child(11) { /* أو استخدم class بدلاً من ذلك */
         overflow: hidden;
         z-index: 2 !important;
     }
-    
+
     .preview-header::after {
         content: '';
         position: absolute;
@@ -506,14 +433,14 @@ td:nth-child(11) { /* أو استخدم class بدلاً من ذلك */
         border-radius: 50%;
         z-index: 0;
     }
-    
+
     .header-left {
         display: flex;
         align-items: center;
         gap: 20px;
         z-index: 1;
     }
-    
+
     .header-icon {
         width: 60px;
         height: 60px;
@@ -526,18 +453,16 @@ td:nth-child(11) { /* أو استخدم class بدلاً من ذلك */
         color: #4f6ef7;
         border: 1px solid rgba(255,255,255,0.05);
     }
-    
+
     .header-title h1 {
         margin: 0;
         color: white;
         font-size: 26px;
         font-weight: 300;
     }
-    
-    .header-title h1 strong {
-        font-weight: 600;
-    }
-    
+
+    .header-title h1 strong { font-weight: 600; }
+
     .header-title .sub-info {
         color: rgba(255,255,255,0.7);
         font-size: 13px;
@@ -547,17 +472,15 @@ td:nth-child(11) { /* أو استخدم class بدلاً من ذلك */
         gap: 15px;
         flex-wrap: wrap;
     }
-    
+
     .header-title .sub-info span {
         display: inline-flex;
         align-items: center;
         gap: 5px;
     }
-    
-    .header-title .sub-info i {
-        font-size: 13px;
-    }
-    
+
+    .header-title .sub-info i { font-size: 13px; }
+
     .header-right {
         z-index: 1;
         display: flex;
@@ -565,14 +488,14 @@ td:nth-child(11) { /* أو استخدم class بدلاً من ذلك */
         align-items: flex-end;
         gap: 5px;
     }
-    
+
     .header-right .year-label {
         color: rgba(255,255,255,0.5);
         font-size: 11px;
         text-transform: uppercase;
         letter-spacing: 1px;
     }
-    
+
     .header-right .year-value {
         color: white;
         font-size: 28px;
@@ -604,13 +527,13 @@ td:nth-child(11) { /* أو استخدم class بدلاً من ذلك */
         position: relative;
         z-index: 3 !important;
     }
-    
+
     .status-item {
         display: flex;
         align-items: center;
         gap: 10px;
     }
-    
+
     .status-item .label {
         font-size: 12px;
         color: #718096;
@@ -618,13 +541,13 @@ td:nth-child(11) { /* أو استخدم class بدلاً من ذلك */
         text-transform: uppercase;
         letter-spacing: 0.5px;
     }
-    
+
     .status-item .value {
         font-size: 14px;
         font-weight: 600;
         color: #1a2332;
     }
-    
+
     .status-badge {
         display: inline-block;
         padding: 4px 16px;
@@ -632,36 +555,13 @@ td:nth-child(11) { /* أو استخدم class بدلاً من ذلك */
         font-size: 13px;
         font-weight: 500;
     }
-    
-    .status-badge.green {
-        background: #c6f6d5;
-        color: #22543d;
-    }
-    
-    .status-badge.blue {
-        background: #bee3f8;
-        color: #2a4365;
-    }
-    
-    .status-badge.orange {
-        background: #feebc8;
-        color: #7b341e;
-    }
-    
-    .status-badge.purple {
-        background: #e9d8fd;
-        color: #44337a;
-    }
-    
-    .status-badge.red {
-        background: #fed7d7;
-        color: #742a2a;
-    }
-    
-    .status-badge.gray {
-        background: #e2e8f0;
-        color: #2d3748;
-    }
+
+    .status-badge.green { background: #c6f6d5; color: #22543d; }
+    .status-badge.blue { background: #bee3f8; color: #2a4365; }
+    .status-badge.orange { background: #feebc8; color: #7b341e; }
+    .status-badge.purple { background: #e9d8fd; color: #44337a; }
+    .status-badge.red { background: #fed7d7; color: #742a2a; }
+    .status-badge.gray { background: #e2e8f0; color: #2d3748; }
 
     /* ===== INFO GRID ===== */
     .info-grid {
@@ -672,21 +572,16 @@ td:nth-child(11) { /* أو استخدم class بدلاً من ذلك */
         position: relative;
         z-index: 3 !important;
     }
-    
-    .info-grid.col-2 {
-        grid-template-columns: repeat(2, 1fr);
-    }
-    
-    .info-grid.col-4 {
-        grid-template-columns: repeat(4, 1fr);
-    }
-    
+
+    .info-grid.col-2 { grid-template-columns: repeat(2, 1fr); }
+    .info-grid.col-4 { grid-template-columns: repeat(4, 1fr); }
+
     .info-field {
         display: flex;
         flex-direction: column;
         gap: 4px;
     }
-    
+
     .info-field .field-label {
         font-size: 11px;
         font-weight: 600;
@@ -694,7 +589,7 @@ td:nth-child(11) { /* أو استخدم class بدلاً من ذلك */
         text-transform: uppercase;
         letter-spacing: 0.8px;
     }
-    
+
     .info-field .field-value {
         font-size: 15px;
         font-weight: 500;
@@ -702,11 +597,9 @@ td:nth-child(11) { /* أو استخدم class بدلاً من ذلك */
         padding: 8px 0;
         border-bottom: 2px solid #f7fafc;
     }
-    
-    .info-field .field-value.highlight {
-        color: #4f6ef7;
-    }
-    
+
+    .info-field .field-value.highlight { color: #4f6ef7; }
+
     .info-field .field-value .fuel-tag {
         display: inline-block;
         padding: 3px 14px;
@@ -714,7 +607,7 @@ td:nth-child(11) { /* أو استخدم class بدلاً من ذلك */
         font-size: 13px;
         font-weight: 500;
     }
-    
+
     .fuel-tag.petrol { background: #ebf4ff; color: #2b6cb0; }
     .fuel-tag.diesel { background: #fefcbf; color: #975a16; }
     .fuel-tag.electric { background: #c6f6d5; color: #22543d; }
@@ -733,13 +626,13 @@ td:nth-child(11) { /* أو استخدم class بدلاً من ذلك */
         position: relative;
         z-index: 3 !important;
     }
-    
+
     .section-divider .line {
         flex: 1;
         height: 1px;
         background: linear-gradient(to right, #e2e8f0, transparent);
     }
-    
+
     .section-divider .title {
         font-size: 14px;
         font-weight: 600;
@@ -749,7 +642,7 @@ td:nth-child(11) { /* أو استخدم class بدلاً من ذلك */
         gap: 8px;
         white-space: nowrap;
     }
-    
+
     .section-divider .title i {
         color: #4f6ef7;
         font-size: 16px;
@@ -764,7 +657,7 @@ td:nth-child(11) { /* أو استخدم class بدلاً من ذلك */
         position: relative;
         z-index: 3 !important;
     }
-    
+
     .image-item {
         border-radius: 10px;
         overflow: hidden;
@@ -774,20 +667,20 @@ td:nth-child(11) { /* أو استخدم class بدلاً من ذلك */
         background: #f7fafc;
         position: relative;
     }
-    
+
     .image-item:hover {
         border-color: #4f6ef7;
         transform: scale(1.03);
         box-shadow: 0 8px 25px rgba(79, 110, 247, 0.15);
     }
-    
+
     .image-item img {
         width: 100%;
         height: 100%;
         object-fit: cover;
         display: block;
     }
-    
+
     .image-item .image-count {
         position: absolute;
         bottom: 10px;
@@ -811,7 +704,7 @@ td:nth-child(11) { /* أو استخدم class بدلاً من ذلك */
         position: relative;
         z-index: 3 !important;
     }
-    
+
     .meta-row .meta-item {
         font-size: 13px;
         color: #718096;
@@ -819,12 +712,12 @@ td:nth-child(11) { /* أو استخدم class بدلاً من ذلك */
         align-items: center;
         gap: 6px;
     }
-    
+
     .meta-row .meta-item i {
         color: #a0aec0;
         font-size: 14px;
     }
-    
+
     .meta-row .meta-item strong {
         color: #2d3748;
         font-weight: 600;
@@ -847,14 +740,14 @@ td:nth-child(11) { /* أو استخدم class بدلاً من ذلك */
         padding-bottom: 15px;
         border-bottom: 3px solid #1a2332;
     }
-    
+
     .print-logo .logo-text {
         font-size: 22px;
         font-weight: 700;
         color: #1a2332;
         letter-spacing: 2px;
     }
-    
+
     .print-logo .logo-sub {
         font-size: 13px;
         color: #718096;
@@ -864,115 +757,72 @@ td:nth-child(11) { /* أو استخدم class بدلاً من ذلك */
 
     /* ===== RESPONSIVE ===== */
     @media (max-width: 992px) {
-        .info-grid {
-            grid-template-columns: repeat(2, 1fr);
-        }
-        .info-grid.col-4 {
-            grid-template-columns: repeat(2, 1fr);
-        }
-        .watermark-bg {
-            width: 60%;
-        }
+        .info-grid { grid-template-columns: repeat(2, 1fr); }
+        .info-grid.col-4 { grid-template-columns: repeat(2, 1fr); }
+        .watermark-bg { width: 60%; }
     }
-    
+
     @media (max-width: 768px) {
-        .preview-wrapper {
-            padding: 10px;
-        }
-        
+        .preview-wrapper { padding: 10px; }
+
         .preview-header {
             padding: 25px;
             flex-direction: column;
             align-items: flex-start;
         }
-        
+
         .header-right {
             width: 100%;
             align-items: flex-start;
         }
-        
+
         .header-right .year-value {
             font-size: 22px;
             padding: 3px 16px;
         }
-        
-        .preview-body {
-            padding: 20px 25px;
-        }
-        
-        .info-grid {
-            grid-template-columns: 1fr;
-            gap: 15px;
-        }
-        
-        .info-grid.col-2 {
-            grid-template-columns: 1fr;
-        }
-        
-        .info-grid.col-4 {
-            grid-template-columns: 1fr;
-        }
-        
-        .image-grid {
-            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-        }
-        
-        .preview-toolbar {
-            flex-direction: column;
-            align-items: flex-start;
-        }
-        
+
+        .preview-body { padding: 20px 25px; }
+
+        .info-grid { grid-template-columns: 1fr; gap: 15px; }
+        .info-grid.col-2 { grid-template-columns: 1fr; }
+        .info-grid.col-4 { grid-template-columns: 1fr; }
+
+        .image-grid { grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); }
+
+        .preview-toolbar { flex-direction: column; align-items: flex-start; }
+
         .toolbar-actions {
             width: 100%;
             flex-wrap: wrap;
         }
-        
+
         .toolbar-actions .btn-preview {
             flex: 1;
             justify-content: center;
         }
-        
-        .status-bar {
-            flex-direction: column;
-            gap: 10px;
-        }
-        
-        .meta-row {
-            flex-direction: column;
-            gap: 8px;
-        }
-        
-        .watermark-bg {
-            width: 60%;
-        }
+
+        .status-bar { flex-direction: column; gap: 10px; }
+        .meta-row { flex-direction: column; gap: 8px; }
+        .watermark-bg { width: 60%; }
     }
 
     @media (max-width: 480px) {
-        .header-left {
-            flex-direction: column;
-            align-items: flex-start;
-        }
-        
+        .header-left { flex-direction: column; align-items: flex-start; }
+
         .header-icon {
             width: 50px;
             height: 50px;
             font-size: 24px;
         }
-        
-        .header-title h1 {
-            font-size: 20px;
-        }
-        
-        .watermark-bg {
-            width: 60%;
-        }
+
+        .header-title h1 { font-size: 20px; }
+        .watermark-bg { width: 60%; }
     }
 
-        .control-toolbar .toolbar-item .btn,
+    .control-toolbar .toolbar-item .btn,
     .control-toolbar .toolbar-item .btn-group,
     .control-toolbar .toolbar-item .dropdown {
         display: none !important;
-        
     }
 
     @media print {
@@ -1002,8 +852,7 @@ td:nth-child(11) { /* أو استخدم class بدلاً من ذلك */
             visibility: hidden;
         }
 
-        html,
-        body {
+        html, body {
             border: 1px solid white;
             height: 99%;
             page-break-after: avoid;
@@ -1013,16 +862,13 @@ td:nth-child(11) { /* أو استخدم class بدلاً من ذلك */
         #img-image-background {
             display: inline !important;
             position: absolute;
-            /* transform: translate(-50%, -50%); */
             top: 50%;
             left: 50%;
             width: 70%;
             opacity: 1;
         }
 
-        @page {
-            margin: none !important;
-        }
+        @page { margin: none !important; }
 
         body {
             margin: 0px !important;
@@ -1031,12 +877,9 @@ td:nth-child(11) { /* أو استخدم class بدلاً من ذلك */
             zoom: 75%;
         }
 
-        .switch-field:has(input[readonly]) {
-            opacity: 1 !important;
-        }
+        .switch-field:has(input[readonly]) { opacity: 1 !important; }
 
         .form-group {
-
             margin-right: 0px !important;
             page-break-inside: avoid !important;
             padding: 0 !important;
@@ -1046,28 +889,21 @@ td:nth-child(11) { /* أو استخدم class بدلاً من ذلك */
         .form-group.layout-item {
             padding-bottom: 0 !important;
         }
-        #Filter-listFilter{
-            display: none!important;
-        }
+
+        #Filter-listFilter { display: none !important; }
 
         .section-field .field-section {
             border-bottom: 2px solid #000;
             font-weight: bold;
             font-size: 1.2em !important;
         }
-            }
+    }
 
-    #img-image-background {
-        display: none;
+    #img-image-background { display: none; }
 
-           }
-
-              #print,
+    #print,
     #reutrnpreview {
         z-index: 0;
         position: relative;
-
-         }
-
-             
+    }
 </style>

@@ -50,43 +50,64 @@ class Analysises extends Controller
     }
 public function onFilterReports()
 {
-    $year_id = post('year_id');
+    $year_id  = post('year_id');
     $month_id = post('month_id');
 
-    if(empty($year_id) || empty($month_id) ){
-        Flash::error('تحديد السنة والشهر و المركز مطلوبين');
+    if (empty($year_id) || empty($month_id)) {
+        Flash::error('تحديد السنة والشهر مطلوبين');
         return;
     }
 
-  $employees = Employee::withWhereHas('payrolls', function ($query) use ($year_id, $month_id) {
-    $query->where('status' , true)->where('year_id', $year_id)->where('month_id', $month_id);
-})
-->get();
+    // ====== جلب الموظفين الذين لديهم رواتب في هذه السنة والشهر ======
+    $employees = Employee::withWhereHas('payrolls', function ($query) use ($year_id, $month_id) {
+        $query->where('status', true)
+              ->where('year_id', $year_id)
+              ->where('month_id', $month_id);
+    })
+    ->get();
 
-//   $total_dollars = Employee::withWhereHas('payrolls', function ($query) use ($year_id, $month_id) {
-//     $query->where('year_id', $year_id)->where('month_id', $month_id)->whereHas('salare', function ($query) {
-//     $query->where('currency', 'dollar');
-// });
-// })
-// ->where('center_id', $center_id)
-// ->get();
-// $total_syrian = Employee::withWhereHas('payrolls', function ($query) use ($year_id, $month_id) {
-//     $query->where('year_id', $year_id)->where('month_id', $month_id)->whereHas('salare', function ($query) {
-//     $query->where('currency', 'syrian');
-// });
-// })
-// ->where('center_id', $center_id)
-// ->get();
+    $employeeIds = $employees->pluck('id')->toArray();
 
+    // ====== الإحصائيات (من جدول الرواتب مباشرة) ======
+    $total_dollars = Payroll::where('status', true)
+        ->where('year_id', $year_id)
+        ->where('month_id', $month_id)
+        ->whereHas('salare', function ($query) {
+            $query->where('currency', 'dollar');
+        })
+        ->whereIn('employee_id', $employeeIds)
+        ->sum('price');
 
-$total_dollars = Payroll::where('status' , true)->where('year_id' , $year_id)->where('month_id' , $month_id)->whereHas('salare', function ($query) { $query->where('currency', 'dollar');})->whereIn('employee_id', $employees->pluck('id')->toArray())->get()->sum('price');
-$total_syrian = Payroll::where('status' , true)->where('year_id' , $year_id)->where('month_id' , $month_id)->whereHas('salare', function ($query) { $query->where('currency', 'syrian');})->whereIn('employee_id', $employees->pluck('id')->toArray())->get()->sum('price');
+    $total_syrian = Payroll::where('status', true)
+        ->where('year_id', $year_id)
+        ->where('month_id', $month_id)
+        ->whereHas('salare', function ($query) {
+            $query->where('currency', 'syrian');
+        })
+        ->whereIn('employee_id', $employeeIds)
+        ->sum('price');
+
     $this->vars['employees'] = $employees;
 
-    // ====== نهاية حساب الإحصائيات ======
+    $statistics = [
+        'total_dollars' => $total_dollars,
+        'total_syrian'  => $total_syrian,
+        'total_number'  => count($employees),
+    ];
 
+    $this->vars['statistics'] = $statistics;
+
+    // ====== إرجاع الـ partials ======
     return [
-        '#body_table' => $this->makePartial('table', ['employees' => $employees , 'centers' => Center::all() , 'month_id' =>$month_id , 'year_id' => $year_id ]),
+        '#body_table' => $this->makePartial('table', [
+            'employees' => $employees,
+            'centers'   => Center::all(),
+            'month_id'  => $month_id,
+            'year_id'   => $year_id,
+        ]),
+        '#statistics-container' => $this->makePartial('statistics', [
+            'statistics' => $statistics,
+        ]),
     ];
 }
 }

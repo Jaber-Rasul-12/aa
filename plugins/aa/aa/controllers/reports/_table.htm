@@ -41,7 +41,7 @@
                 <td style="padding: 10px; text-align: center; border-bottom: 1px solid #ddd;">
                     <span class="badge badge-info"><?= $employee->national_id ?? '-' ?></span>
                 </td>
-                <td style="padding: 10px; text-align: center; border-bottom: 1px solid #ddd;"><?= $employee->center->name ?? '-' ?></td>
+                <td style="padding: 10px; text-align: center; border-bottom: 1px solid #ddd;"><?= $employee->payrolls->first()->center->name ?? '-' ?></td>
                 <td style="padding: 10px; text-align: center; border-bottom: 1px solid #ddd; direction: ltr;">
                     <code><?= $employee->salare->FullQualityName ?? '-' ?></code>
                 </td>

@@ -49,69 +49,137 @@ class Reports extends Controller
             '#monthSelect' => $this->makePartial('monthoptions', ['months' => $months]),
         ];
     }
+// public function onFilterReports()
+// {
+//     $year_id = post('year_id');
+//     $month_id = post('month_id');
+//     $center_id = post('center_id');
+
+//     if(empty($year_id) || empty($month_id) || empty($center_id)){
+//         Flash::error('تحديد السنة والشهر و المركز مطلوبين');
+//         return;
+//     }
+
+// //   $employees = Employee::withWhereHas('payrolls', function ($query) use ($year_id, $month_id) {
+// //     $query->where('status' , true)->where('year_id', $year_id)->where('month_id', $month_id);
+// // })
+// // ->where('center_id', $center_id)
+// // ->get();
+
+// $employees = Employee::with(['payrolls' => function ($query) use ($year_id, $month_id) {
+//         $query->where('status', true)
+//               ->where('year_id', $year_id)
+//               ->where('month_id', $month_id)
+//               ->orderBy('created_at', 'asc');
+//     }])
+//     ->join('aa_aa_payrolls', 'aa_aa_payrolls.employee_id', '=', 'aa_aa_employees.id')
+//     ->where('aa_aa_payrolls.status', true)
+//     ->where('aa_aa_payrolls.year_id', $year_id)
+//     ->where('aa_aa_payrolls.month_id', $month_id)
+//     ->where('aa_aa_employees.center_id', $center_id)
+//     ->orderBy('aa_aa_payrolls.created_at', 'asc')
+//     ->select('aa_aa_employees.*')
+//     ->get();
+
+// // $employees = Employee::join('aa_aa_payrolls', function ($join) use ($year_id, $month_id) {
+// //     $join->on('aa_aa_employees.id', '=', 'aa_aa_payrolls.employee_id')
+// //          ->where('aa_aa_payrolls.status', true)
+// //          ->where('aa_aa_payrolls.year_id', $year_id)
+// //          ->where('aa_aa_payrolls.month_id', $month_id);
+// // })
+// // ->where('aa_aa_employees.center_id', $center_id)
+// // ->orderBy('aa_aa_payrolls.created_at', 'asc') // الفرز حسب تاريخ الاستلام
+// // ->select('aa_aa_employees.*') // لتجنب تكرار الأعمدة
+// // ->get();
+
+
+
+// $total_dollars = Payroll::where('status' , true)->where('year_id' , $year_id)->where('month_id' , $month_id)->whereHas('salare', function ($query) { $query->where('currency', 'dollar');})->whereIn('employee_id', $employees->pluck('id')->toArray())->get()->sum('price');
+// $total_syrian = Payroll::where('status' , true)->where('year_id' , $year_id)->where('month_id' , $month_id)->whereHas('salare', function ($query) { $query->where('currency', 'syrian');})->whereIn('employee_id', $employees->pluck('id')->toArray())->get()->sum('price');
+//     $this->vars['employees'] = $employees;
+
+//     // ====== حساب الإحصائيات ======
+//     $statistics = [
+//         'total_dollars' => $total_dollars,
+//         'total_syrian' => $total_syrian,
+//         'total_number' => count($employees),
+//     ];
+
+
+//     $this->vars['statistics'] = $statistics;
+//     // ====== نهاية حساب الإحصائيات ======
+
+//     return [
+//         '#body_table' => $this->makePartial('table', ['employees' => $employees ]),
+//         '#statistics-container' => $this->makePartial('statistics', ['statistics' => $statistics ]),
+//     ];
+// }
+
 public function onFilterReports()
 {
-    $year_id = post('year_id');
-    $month_id = post('month_id');
+    $year_id   = post('year_id');
+    $month_id  = post('month_id');
     $center_id = post('center_id');
 
-    if(empty($year_id) || empty($month_id) || empty($center_id)){
-        Flash::error('تحديد السنة والشهر و المركز مطلوبين');
+    if (empty($year_id) || empty($month_id) || empty($center_id)) {
+        Flash::error('تحديد السنة والشهر والمركز مطلوبين');
         return;
     }
 
-//   $employees = Employee::withWhereHas('payrolls', function ($query) use ($year_id, $month_id) {
-//     $query->where('status' , true)->where('year_id', $year_id)->where('month_id', $month_id);
-// })
-// ->where('center_id', $center_id)
-// ->get();
+    // ====== جلب الموظفين حسب مركز الراتب ======
+    $employees = Employee::with(['payrolls' => function ($query) use ($year_id, $month_id) {
+            $query->where('status', true)
+                  ->where('year_id', $year_id)
+                  ->where('month_id', $month_id)
+                  ->orderBy('created_at', 'asc');
+        }])
+        ->join('aa_aa_payrolls', 'aa_aa_payrolls.employee_id', '=', 'aa_aa_employees.id')
+        ->where('aa_aa_payrolls.status', true)
+        ->where('aa_aa_payrolls.year_id', $year_id)
+        ->where('aa_aa_payrolls.month_id', $month_id)
+        ->where('aa_aa_payrolls.center_id', $center_id)   // ✅ التعديل هنا: مركز الراتب وليس الموظف
+        ->orderBy('aa_aa_payrolls.created_at', 'asc')
+        ->select('aa_aa_employees.*')
+        ->get();
 
-$employees = Employee::with(['payrolls' => function ($query) use ($year_id, $month_id) {
-        $query->where('status', true)
-              ->where('year_id', $year_id)
-              ->where('month_id', $month_id)
-              ->orderBy('created_at', 'asc');
-    }])
-    ->join('aa_aa_payrolls', 'aa_aa_payrolls.employee_id', '=', 'aa_aa_employees.id')
-    ->where('aa_aa_payrolls.status', true)
-    ->where('aa_aa_payrolls.year_id', $year_id)
-    ->where('aa_aa_payrolls.month_id', $month_id)
-    ->where('aa_aa_employees.center_id', $center_id)
-    ->orderBy('aa_aa_payrolls.created_at', 'asc')
-    ->select('aa_aa_employees.*')
-    ->get();
+    // ====== الإحصائيات ======
+    $employeeIds = $employees->pluck('id')->toArray();
 
-// $employees = Employee::join('aa_aa_payrolls', function ($join) use ($year_id, $month_id) {
-//     $join->on('aa_aa_employees.id', '=', 'aa_aa_payrolls.employee_id')
-//          ->where('aa_aa_payrolls.status', true)
-//          ->where('aa_aa_payrolls.year_id', $year_id)
-//          ->where('aa_aa_payrolls.month_id', $month_id);
-// })
-// ->where('aa_aa_employees.center_id', $center_id)
-// ->orderBy('aa_aa_payrolls.created_at', 'asc') // الفرز حسب تاريخ الاستلام
-// ->select('aa_aa_employees.*') // لتجنب تكرار الأعمدة
-// ->get();
+    $total_dollars = Payroll::where('status', true)
+        ->where('year_id', $year_id)
+        ->where('month_id', $month_id)
+        ->where('center_id', $center_id)                  // ✅ أيضاً هنا: فلترة حسب مركز الراتب
+        ->whereHas('salare', function ($query) {
+            $query->where('currency', 'dollar');
+        })
+        ->whereIn('employee_id', $employeeIds)
+        ->sum('price');
 
+    $total_syrian = Payroll::where('status', true)
+        ->where('year_id', $year_id)
+        ->where('month_id', $month_id)
+        ->where('center_id', $center_id)                  // ✅ و هنا كذلك
+        ->whereHas('salare', function ($query) {
+            $query->where('currency', 'syrian');
+        })
+        ->whereIn('employee_id', $employeeIds)
+        ->sum('price');
 
-
-$total_dollars = Payroll::where('status' , true)->where('year_id' , $year_id)->where('month_id' , $month_id)->whereHas('salare', function ($query) { $query->where('currency', 'dollar');})->whereIn('employee_id', $employees->pluck('id')->toArray())->get()->sum('price');
-$total_syrian = Payroll::where('status' , true)->where('year_id' , $year_id)->where('month_id' , $month_id)->whereHas('salare', function ($query) { $query->where('currency', 'syrian');})->whereIn('employee_id', $employees->pluck('id')->toArray())->get()->sum('price');
     $this->vars['employees'] = $employees;
 
     // ====== حساب الإحصائيات ======
     $statistics = [
         'total_dollars' => $total_dollars,
-        'total_syrian' => $total_syrian,
-        'total_number' => count($employees),
+        'total_syrian'  => $total_syrian,
+        'total_number'  => count($employees),
     ];
-
 
     $this->vars['statistics'] = $statistics;
     // ====== نهاية حساب الإحصائيات ======
 
     return [
-        '#body_table' => $this->makePartial('table', ['employees' => $employees ]),
-        '#statistics-container' => $this->makePartial('statistics', ['statistics' => $statistics ]),
+        '#body_table'          => $this->makePartial('table', ['employees' => $employees]),
+        '#statistics-container' => $this->makePartial('statistics', ['statistics' => $statistics]),
     ];
 }
 }
