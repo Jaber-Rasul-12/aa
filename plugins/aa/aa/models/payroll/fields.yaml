@@ -10,6 +10,7 @@ fields:
         label: 'aa.aa::lang.model.payroll.status'
         span: auto
         type: switch
+        default: 1
     october_month:
         label: 'الشهر العاشر '
         type: section
