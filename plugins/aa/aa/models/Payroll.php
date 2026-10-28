@@ -111,7 +111,8 @@ class Payroll extends Model
   {
 
     $with_september = $this->getOriginalPurgeValue('with_september');
-    if($with_september && $this->month_id == 10){
+    if(($with_september == true) && ($this->month_id == 10)){
+       
         $septemberMonth = Month::where('name' , 9)->first();
         if($septemberMonth){
             $septemberPayroll = new Payroll();
@@ -120,7 +121,7 @@ class Payroll extends Model
             $septemberPayroll->year_id = $this->year_id;
             $septemberPayroll->month_id = $septemberMonth->id;
             $septemberPayroll->discount = $this->discount;
-            $septemberPayroll->price = $this->price - $this->discount;
+            $septemberPayroll->price = (float)$this->price - (float)$this->discount;
             $septemberPayroll->center_id = $this->center_id;
             $septemberPayroll->status = true;
             $septemberPayroll->save();
