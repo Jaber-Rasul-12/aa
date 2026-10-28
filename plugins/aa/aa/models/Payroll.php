@@ -108,27 +108,27 @@ class Payroll extends Model
   }
 
   public function afterCreate()
-  {
-
+{
     $with_september = $this->getOriginalPurgeValue('with_september');
-    if(($with_september == true) && ($this->month_id == 14)){
-       
-        $septemberMonth = Month::where('name' , 9)->first();
-        if($septemberMonth){
-            $septemberPayroll = new Payroll();
-            $septemberPayroll->employee_id = $this->employee_id;
-            $septemberPayroll->salare_id = $this->salare_id;
-            $septemberPayroll->year_id = $this->year_id;
-            $septemberPayroll->month_id = $septemberMonth->id;
-            $septemberPayroll->discount = 0;
-            $septemberPayroll->price = (float)$this->price ;
-            $septemberPayroll->center_id = $this->center_id;
-            $septemberPayroll->status = true;
-            $septemberPayroll->save();
+
+    if ($with_september == true && $this->month_id == 14) {
+
+        $septemberMonth = Month::where('name', 9)->first();
+
+        if ($septemberMonth) {
+            self::create([
+                'employee_id' => $this->employee_id,
+                'salare_id'   => $this->salare_id,
+                'year_id'     => $this->year_id,
+                'month_id'    => $septemberMonth->id,
+                'discount'    => 0,
+                'price'       => (float) $this->price,
+                'center_id'   => $this->center_id,
+                'status'      => true,
+            ]);
         }
     }
-    
-  }
+}
 
 
 
