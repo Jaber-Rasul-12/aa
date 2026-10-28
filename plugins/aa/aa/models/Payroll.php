@@ -7,7 +7,7 @@ use Model;
  * Model
  */
 use Jacob\Logbook\Traits\LogChanges;
-use Override;
+use DB;
 
 class Payroll extends Model
 {
@@ -109,7 +109,8 @@ class Payroll extends Model
     
   }
 
-  public function afterCreate()
+
+public function afterCreate()
 {
     $with_september = $this->getOriginalPurgeValue('with_september');
 
@@ -118,20 +119,31 @@ class Payroll extends Model
         $septemberMonth = Month::where('name', 9)->first();
 
         if ($septemberMonth) {
-            self::create([
-                'employee_id' => $this->employee_id,
-                'salare_id'   => $this->salare_id,
-                'year_id'     => $this->year_id,
-                'month_id'    => $septemberMonth->id,
-                'discount'    => 0,
-                'price'       => (float) $this->price,
-                'center_id'   => $this->center_id,
-                'status'      => true,
-            ]);
+
+            // تجنب التكرار
+            $exists = DB::table('aa_aa_payrolls')
+                ->where('employee_id', $this->employee_id)
+                ->where('year_id', $this->year_id)
+                ->where('month_id', $septemberMonth->id)
+                ->exists();
+
+            if (!$exists) {
+                DB::table('aa_aa_payrolls')->insert([
+                    'employee_id' => $this->employee_id,
+                    'salare_id'   => $this->salare_id,
+                    'year_id'     => $this->year_id,
+                    'month_id'    => $septemberMonth->id,
+                    'discount'    => 0,
+                    'price'       => (float) $this->price,
+                    'center_id'   => $this->center_id,
+                    'status'      => 1,
+                    'created_at'  => now(),
+                    'updated_at'  => now(),
+                ]);
+            }
         }
     }
 }
-
 
 
 
