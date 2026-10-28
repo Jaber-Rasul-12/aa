@@ -16,7 +16,7 @@ fields:
         type: section
         comment: 'هاذ القسم خاص بالشهر العاشر   فقط'        
     with_october:
-        label: 'هل تود تسليم راتب  الشهر التاسع'
+        label: 'هل تود تسليم راتب  الشهر العاشر'
         span: auto
         type: switch
         default: 1
@@ -38,7 +38,7 @@ fields:
         type: section
         comment: 'هاذ القسم خاص بالشهر التاسع اذا كنت تريد تسليم راتب الشهر التاسع ( قم بتغعيل الشهر التاسع من الاسفل و اضف الخصم ان وجد )    '        
     with_september:
-        label: 'هل تود تسليم راتب  الشهر العاشر'
+        label: 'هل تود تسليم راتب  الشهر التاسع'
         span: auto
         type: switch
     discount_september: 
