@@ -53,7 +53,7 @@ return [
             'June' => 'June',
             'July' => 'July',
             'August' => 'August',
-            'September' => 'September + October',
+            'September' => 'September',
             'October' => 'October',
             'November' => 'November',
             'December' => 'December',

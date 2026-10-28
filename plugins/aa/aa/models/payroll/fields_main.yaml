@@ -24,10 +24,12 @@ fields:
         dependsOn: 
             - discount
             - salare_id
-        comment: 'يرجا العلم ان السعر يتم ضربة ب 2  للشهر التاسع و العاشر معا'
 
         
-        
+    with_september:
+        label: 'ان الشهر العاشر ثابت هل تريد تسليم الراتب التاسع مع الشهر العاشر'
+        span: auto
+        type: switch
     status: 
         label: 'aa.aa::lang.model.payroll.status'
         span: auto

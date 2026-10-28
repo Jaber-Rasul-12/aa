@@ -7,12 +7,18 @@ use Model;
  * Model
  */
 use Jacob\Logbook\Traits\LogChanges;
+use Override;
+
 class Payroll extends Model
 {
     use \Winter\Storm\Database\Traits\Validation;
+    use \Winter\Storm\Database\Traits\Purgeable;
     
   
   use LogChanges;
+
+
+  protected $purgeable = ['with_september'];
 
 
 
@@ -55,7 +61,7 @@ class Payroll extends Model
 
 
 
-           public function getSalareIdOptions()
+  public function getSalareIdOptions()
   {
    if (isset($this->employee->id) && !empty($this->employee->id)) {
       return Salare::where('id', $this->employee->salay_id)->get()->lists('FullQualityName', 'id');
@@ -84,7 +90,7 @@ class Payroll extends Model
      public function filterFields($fields, $context = null)
   {         
       if ((isset($fields->salare_id) && !empty($fields->salare_id->value)) && isset($fields->discount->value) && (!empty($fields->discount->value) || $fields->discount->value == 0)) {
-                $fields->price->value = (Salare::where('id' , $fields->salare_id->value)->get()->first()->price - $fields->discount->value) * 2;     
+                $fields->price->value = Salare::where('id' , $fields->salare_id->value)->get()->first()->price - $fields->discount->value;     
       }else{
             $fields->price->value = 0;
 
@@ -98,6 +104,28 @@ class Payroll extends Model
   public function beforeCreate()
   {
     $this->checkUniqueNameYear();
+    
+  }
+
+  public function afterCreate()
+  {
+
+    $with_september = $this->getOriginalPurgeValue('with_september');
+    if($with_september && $this->month_id == 10){
+        $septemberMonth = Month::where('name' , 9)->first();
+        if($septemberMonth){
+            $septemberPayroll = new Payroll();
+            $septemberPayroll->employee_id = $this->employee_id;
+            $septemberPayroll->salare_id = $this->salare_id;
+            $septemberPayroll->year_id = $this->year_id;
+            $septemberPayroll->month_id = $septemberMonth->id;
+            $septemberPayroll->discount = $this->discount;
+            $septemberPayroll->price = $this->price - $this->discount;
+            $septemberPayroll->center_id = $this->center_id;
+            $septemberPayroll->status = true;
+            $septemberPayroll->save();
+        }
+    }
     
   }
 
