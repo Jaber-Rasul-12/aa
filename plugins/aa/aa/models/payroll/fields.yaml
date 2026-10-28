@@ -24,7 +24,7 @@ fields:
         span: auto
         type: switch
     discount_september: 
-        label: 'aa.aa::lang.model.payroll.discount_september'
+        label: 'خصم الشهر التاسع'
         type: number
         span: auto
         trigger:
