@@ -18,7 +18,7 @@ class Payroll extends Model
   use LogChanges;
 
 
-  protected $purgeable = ['with_september' , 'discount_september'];
+  protected $purgeable = ['with_september' , 'discount_september' , 'with_october'];
 
   public $fillable = ['employee_id' , 'salare_id' , 'year_id' , 'month_id' , 'center_id' , 'status' , 'discount' , 'price'];
 
@@ -112,18 +112,17 @@ class Payroll extends Model
 
 public function afterCreate()
 {
-    $with_september = $this->getOriginalPurgeValue('with_september');
-
-
+    $with_september     = $this->getOriginalPurgeValue('with_september');
     $discount_september = $this->getOriginalPurgeValue('discount_september');
+    $with_october       = $this->getOriginalPurgeValue('with_october');
 
+    // 1) إنشاء سجل سبتمبر إذا كان مطلوباً
     if ($with_september == true && $this->month_id == 14) {
 
         $septemberMonth = Month::where('name', 9)->first();
 
         if ($septemberMonth) {
 
-            // تجنب التكرار
             $exists = DB::table('aa_aa_payrolls')
                 ->where('employee_id', $this->employee_id)
                 ->where('year_id', $this->year_id)
@@ -146,8 +145,14 @@ public function afterCreate()
             }
         }
     }
-}
 
+    // 2) إذا لم يكن with_october مفعّلاً، احذف سجل أكتوبر الحالي
+    if (!$with_october) {
+        DB::table('aa_aa_payrolls')
+            ->where('id', $this->id)
+            ->delete();
+    }
+}
 
 
   public function beforeUpdate()
