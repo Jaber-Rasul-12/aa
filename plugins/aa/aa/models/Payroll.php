@@ -20,6 +20,8 @@ class Payroll extends Model
 
   protected $purgeable = ['with_september'];
 
+  public $fillable = ['employee_id' , 'salare_id' , 'year_id' , 'month_id' , 'center_id' , 'status' , 'discount' , 'price'];
+
 
 
   public $logBookModelName = 'aa.aa::lang.plugin.payrolls';
