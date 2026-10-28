@@ -84,7 +84,7 @@ class Payroll extends Model
      public function filterFields($fields, $context = null)
   {         
       if ((isset($fields->salare_id) && !empty($fields->salare_id->value)) && isset($fields->discount->value) && (!empty($fields->discount->value) || $fields->discount->value == 0)) {
-                $fields->price->value = Salare::where('id' , $fields->salare_id->value)->get()->first()->price - $fields->discount->value;     
+                $fields->price->value = (Salare::where('id' , $fields->salare_id->value)->get()->first()->price - $fields->discount->value) * 2;     
       }else{
             $fields->price->value = 0;
 
