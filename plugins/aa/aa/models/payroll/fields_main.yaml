@@ -10,6 +10,7 @@ fields:
         span: auto
         type: dropdown
         placeholder: aa.aa::lang.plugin.select
+    
         
     discount:
         label: 'aa.aa::lang.model.payroll.discount'
@@ -24,12 +25,12 @@ fields:
         dependsOn: 
             - discount
             - salare_id
-
-        
     with_september:
         label: 'ان الشهر العاشر ثابت هل تريد تسليم الراتب التاسع مع الشهر العاشر'
         span: auto
         type: switch
+    
+        
     status: 
         label: 'aa.aa::lang.model.payroll.status'
         span: auto
