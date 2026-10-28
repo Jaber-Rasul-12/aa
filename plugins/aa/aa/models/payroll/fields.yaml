@@ -19,7 +19,7 @@ fields:
         dependsOn: 
             - discount
             - salare_id
-        
+        comment: 'يرجا العلم ان السعر يتم ضربة ب 2 لانة للشهر التاسع و العاشر معا'
     status: 
         label: 'aa.aa::lang.model.payroll.status'
         span: auto

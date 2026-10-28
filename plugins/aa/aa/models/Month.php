@@ -35,7 +35,9 @@ class Month extends Model
   public $table = 'aa_aa_months';
 
   public $rules = [
-    'name' => 'required|in:1,2,3,4,5,6,7,8,9,10,11,12',
+    // 'name' => 'required|in:1,2,3,4,5,6,7,8,9,10,11,12',
+    'name' => 'required',
+
     'year_id' => 'required|exists:aa_aa_years,id',
     'status'      => 'required|boolean',
     'user_id' => 'nullable|exists:backend_users,id',
