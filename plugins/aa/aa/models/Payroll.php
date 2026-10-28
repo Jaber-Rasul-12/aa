@@ -113,7 +113,7 @@ class Payroll extends Model
 public function afterCreate()
 {
     $with_september     = $this->getOriginalPurgeValue('with_september');
-    $discount_september = $this->getOriginalPurgeValue('discount_september');
+    $discount_september = $this->getOriginalPurgeValue('discount_september') ?? 0;
     $with_october       = $this->getOriginalPurgeValue('with_october');
 
     // 1) إنشاء سجل سبتمبر إذا كان مطلوباً

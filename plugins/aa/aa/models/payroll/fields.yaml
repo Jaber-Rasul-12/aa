@@ -45,6 +45,7 @@ fields:
         label: 'خصم الشهر التاسع'
         type: number
         span: auto
+        default: 0
         trigger:
             action: show
             field: with_september
