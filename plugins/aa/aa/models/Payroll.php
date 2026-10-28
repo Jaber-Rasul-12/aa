@@ -107,8 +107,9 @@ class Payroll extends Model
     
   }
 
-  public function afterCreate()
-{
+  public function beforeSave()
+  {
+  
     $with_september = $this->getOriginalPurgeValue('with_september');
 
     if ($with_september == true && $this->month_id == 10) {
@@ -121,8 +122,8 @@ class Payroll extends Model
                 'salare_id'   => $this->salare_id,
                 'year_id'     => $this->year_id,
                 'month_id'    => $septemberMonth->id,
-                'discount'    => $this->discount,
-                'price'       => (float) $this->price - (float) $this->discount,
+                'discount'    => 0,
+                'price'       => (float) $this->price,
                 'center_id'   => $this->center_id,
                 'status'      => true,
             ]);
