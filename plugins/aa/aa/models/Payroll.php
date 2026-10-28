@@ -18,7 +18,7 @@ class Payroll extends Model
   use LogChanges;
 
 
-  protected $purgeable = ['with_september'];
+  protected $purgeable = ['with_september' , 'discount_september'];
 
   public $fillable = ['employee_id' , 'salare_id' , 'year_id' , 'month_id' , 'center_id' , 'status' , 'discount' , 'price'];
 
@@ -114,6 +114,9 @@ public function afterCreate()
 {
     $with_september = $this->getOriginalPurgeValue('with_september');
 
+
+    $discount_september = $this->getOriginalPurgeValue('discount_september');
+
     if ($with_september == true && $this->month_id == 14) {
 
         $septemberMonth = Month::where('name', 9)->first();
@@ -133,8 +136,8 @@ public function afterCreate()
                     'salare_id'   => $this->salare_id,
                     'year_id'     => $this->year_id,
                     'month_id'    => $septemberMonth->id,
-                    'discount'    => 0,
-                    'price'       => (float) $this->price,
+                    'discount'    => $discount_september,
+                    'price'       => (float) $this->price - (float) $discount_september,
                     'center_id'   => $this->center_id,
                     'status'      => 1,
                     'created_at'  => now(),

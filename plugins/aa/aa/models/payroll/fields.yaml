@@ -23,6 +23,14 @@ fields:
         label: 'ان الشهر العاشر ثابت هل تريد تسليم الراتب التاسع مع الشهر العاشر'
         span: auto
         type: switch
+    discount_september: 
+        label: 'aa.aa::lang.model.payroll.discount_september'
+        type: number
+        span: auto
+        trigger:
+            action: show
+            field: with_september
+            condition: checked
     status: 
         label: 'aa.aa::lang.model.payroll.status'
         span: auto
