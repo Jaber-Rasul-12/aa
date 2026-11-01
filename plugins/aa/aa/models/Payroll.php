@@ -136,7 +136,7 @@ public function afterCreate()
                     'year_id'     => $this->year_id,
                     'month_id'    => $septemberMonth->id,
                     'discount'    => $discount_september,
-                    'price'       => (float) $this->price - (float) $discount_september,
+                    'price'       => (float) $this->salare->price - (float) $discount_september,
                     'center_id'   => $this->center_id,
                     'status'      => 1,
                     'created_at'  => now(),
